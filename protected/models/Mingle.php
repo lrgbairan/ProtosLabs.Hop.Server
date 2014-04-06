@@ -5,9 +5,9 @@
  *
  * The followings are the available columns in table '{{mingle}}':
  * @property integer $id
- * @property integer $sender_id
+ * @property integer $user_id
  * @property integer $receiver_id
- * @property integer $lastUpdate
+ * @property string $lastUpdate
  * @property integer $deleted
  */
 class Mingle extends CActiveRecord
@@ -28,15 +28,22 @@ class Mingle extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('sender_id, receiver_id, lastUpdate, deleted', 'required'),
-			array('sender_id, receiver_id, lastUpdate, deleted', 'numerical', 'integerOnly'=>true),
+			array('user_id, receiver_id', 'required'),
+			array('user_id, receiver_id, deleted', 'numerical', 'integerOnly'=>true),
+			array('lastUpdate', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, sender_id, receiver_id, lastUpdate, deleted', 'safe', 'on'=>'search'),
+			array('id, user_id, receiver_id, lastUpdate, deleted', 'safe', 'on'=>'search'),
 
 			array('lastUpdate','default',
               	  'value'=>new CDbExpression('NOW()'),
               	  'setOnEmpty'=>false,'on'=>'update'),
+			array('lastUpdate','default',
+              	  'value'=>new CDbExpression('NOW()'),
+              	  'setOnEmpty'=>false,'on'=>'insert'),
+			array('deleted','default',
+              	  'value'=>'0',
+              	  'setOnEmpty'=>false,'on'=>'insert'),
 		);
 	}
 
@@ -58,7 +65,7 @@ class Mingle extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'sender_id' => 'Sender',
+			'user_id' => 'User',
 			'receiver_id' => 'Receiver',
 			'lastUpdate' => 'Last Update',
 			'deleted' => 'Deleted',
@@ -84,9 +91,9 @@ class Mingle extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('sender_id',$this->sender_id);
+		$criteria->compare('user_id',$this->user_id);
 		$criteria->compare('receiver_id',$this->receiver_id);
-		$criteria->compare('lastUpdate',$this->lastUpdate);
+		$criteria->compare('lastUpdate',$this->lastUpdate,true);
 		$criteria->compare('deleted',$this->deleted);
 
 		return new CActiveDataProvider($this, array(

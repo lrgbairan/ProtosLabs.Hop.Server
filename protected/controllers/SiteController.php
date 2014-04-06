@@ -271,7 +271,7 @@ class SiteController extends Controller
 		return $this->_lvlModel;
 	}
 
-	public function actionMingleRequests(){
+	public function actionGetMingleRequests(){
 		if(isset($_GET['id'])){
 			$models = Mingle::model()->findAll('receiver_id=?',array($_GET['id']));
 			if(!empty($models)){
@@ -283,6 +283,26 @@ class SiteController extends Controller
 			}		
 			else
 				print(json_encode(array('error'=>'1')));
+		}
+	}
+
+	public function actionSendMingleRequest(){
+		if(isset($_GET['user_id']) && isset($_GET['receiver_id'])){
+			$criteria = new CDbCriteria();
+			$criteria->addInCondition('user_id',array($_GET['user_id']));
+			$criteria->addInCondition('receiver_id',array($_GET['receiver_id']));
+			$modelMingle = Mingle::model()->find($criteria);
+
+			if($modelMingle !== null){
+				print(json_encode(array('flag'=>'false')));
+			}
+			else{
+				$model = new Mingle();
+				$model->user_id = $_GET['user_id'];
+				$model->receiver_id = $_GET['receiver_id'];
+				$model->save();
+				print(json_encode(array('flag'=>'true')));
+			}
 		}
 	}
 
