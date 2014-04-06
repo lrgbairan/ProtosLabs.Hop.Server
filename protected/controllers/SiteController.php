@@ -306,6 +306,28 @@ class SiteController extends Controller
 		}
 	}
 
+	public function actionAcceptMingleRequest(){
+		if(isset($_GET['id'])){
+			$model = Mingle::model()->findByPk($_GET['id']);
+			if($model !== null){
+				$model->delete();
+				print(json_encode(array('flag'=>'true')));
+			}
+			else
+				print(json_encode(array('flag'=>'false')));
+		}
+
+	}
+
+	public function actionRandomArea(){
+		
+		$placeId = rand(1, 4);
+		$model = Minglearea::model()->findByPk($placeId);
+		$row[] = array('area'=>$model->area);
+		print(json_encode(array('data'=>$row)));
+
+	}
+
 	public function actionCheckUser(){
 
 		if(isset($_GET['username'])){
