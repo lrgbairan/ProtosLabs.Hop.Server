@@ -44,6 +44,12 @@ class Mingle extends CActiveRecord
 			array('deleted','default',
               	  'value'=>'0',
               	  'setOnEmpty'=>false,'on'=>'insert'),
+			array('user_token','default',
+              	  'value'=> 0,
+              	  'setOnEmpty'=>false,'on'=>'insert'),
+			array('receiver_token','default',
+              	  'value'=> 0,
+              	  'setOnEmpty'=>false,'on'=>'insert'),
 		);
 	}
 
@@ -54,7 +60,7 @@ class Mingle extends CActiveRecord
 	{
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
-		return array(
+		return array( 
 		);
 	}
 

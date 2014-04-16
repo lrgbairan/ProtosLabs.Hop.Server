@@ -5,17 +5,21 @@
  *
  * The followings are the available columns in table '{{userinfo}}':
  * @property integer $id
+ * @property integer $log_id
  * @property integer $lvl_id
  * @property string $rfidTag
  * @property string $gender
  * @property string $email
  * @property integer $currentExp
  * @property integer $status_id
+ * @property integer $stamina
+ * @property string $nextRefresh
+ * @property string $image
  * @property string $lastUpdate
+ * @property integer $deleted
  *
  * The followings are the available model relations:
  * @property Usercurrentbar[] $usercurrentbars
- * @property Userlog[] $userlogs
  */
 class Userinfo extends CActiveRecord
 {
@@ -35,16 +39,37 @@ class Userinfo extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('lvl_id, rfidTag, gender, email, currentExp, status_id, lastUpdate', 'required'),
-			array('lvl_id, currentExp, status_id', 'numerical', 'integerOnly'=>true),
-			array('rfidTag, email', 'length', 'max'=>128),
+			array('rfidTag, gender, email', 'required'),
+			array('log_id, lvl_id, currentExp, status_id, stamina, deleted', 'numerical', 'integerOnly'=>true),
+			array('rfidTag, email, image', 'length', 'max'=>128),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, lvl_id, rfidTag, gender, email, currentExp, status_id, lastUpdate', 'safe', 'on'=>'search'),
+			array('id, log_id, lvl_id, rfidTag, gender, email, currentExp, status_id, stamina, nextRefresh, image, lastUpdate, deleted', 'safe', 'on'=>'search'),
 
 			array('lastUpdate','default',
               	  'value'=>new CDbExpression('NOW()'),
               	  'setOnEmpty'=>false,'on'=>'update'),
+			array('lastUpdate','default',
+              	  'value'=>new CDbExpression('NOW()'),
+              	  'setOnEmpty'=>false,'on'=>'insert'),
+			array('deleted','default',
+              	  'value'=>0,
+              	  'setOnEmpty'=>false,'on'=>'insert'),
+			array('lvl_id','default',
+              	  'value'=>1,
+              	  'setOnEmpty'=>false,'on'=>'insert'),
+			array('currentExp','default',
+              	  'value'=>0,
+              	  'setOnEmpty'=>false,'on'=>'insert'),
+			array('status_id','default',
+              	  'value'=>1,
+              	  'setOnEmpty'=>false,'on'=>'insert'),
+			array('stamina','default',
+              	  'value'=>100,
+              	  'setOnEmpty'=>false,'on'=>'insert'),
+			array('nextRefresh','default',
+              	  'value'=> DateTime::createFromFormat('Y-m-d', date('Y-m-d'))->modify('+1 day')->format('Y-m-d'),
+              	  'setOnEmpty'=>false,'on'=>'insert'),
 		);
 	}
 
@@ -56,10 +81,7 @@ class Userinfo extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'usercurrentbars' => array(self::HAS_ONE, 'Usercurrentbar', 'user_id'),
-			'userlogs' => array(self::HAS_ONE, 'Userlog', 'user_id'),
-			'userlvl' => array(self::HAS_ONE,'Level','id'),
-			'userstat' => array(self::HAS_ONE,'Status','id'),
+			'usercurrentbars' => array(self::HAS_MANY, 'Usercurrentbar', 'user_id'),
 		);
 	}
 
@@ -70,13 +92,18 @@ class Userinfo extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
+			'log_id' => 'Log',
 			'lvl_id' => 'Lvl',
 			'rfidTag' => 'Rfid Tag',
 			'gender' => 'Gender',
 			'email' => 'Email',
 			'currentExp' => 'Current Exp',
 			'status_id' => 'Status',
+			'stamina' => 'Stamina',
+			'nextRefresh' => 'Next Refresh',
+			'image' => 'Image',
 			'lastUpdate' => 'Last Update',
+			'deleted' => 'Deleted',
 		);
 	}
 
@@ -92,7 +119,31 @@ class Userinfo extends CActiveRecord
 	 * @return CActiveDataProvider the data provider that can return the models
 	 * based on the search/filter conditions.
 	 */
-	
+	public function search()
+	{
+		// @todo Please modify the following code to remove attributes that should not be searched.
+
+		$criteria=new CDbCriteria;
+
+		$criteria->compare('id',$this->id);
+		$criteria->compare('log_id',$this->log_id);
+		$criteria->compare('lvl_id',$this->lvl_id);
+		$criteria->compare('rfidTag',$this->rfidTag,true);
+		$criteria->compare('gender',$this->gender,true);
+		$criteria->compare('email',$this->email,true);
+		$criteria->compare('currentExp',$this->currentExp);
+		$criteria->compare('status_id',$this->status_id);
+		$criteria->compare('stamina',$this->stamina);
+		$criteria->compare('nextRefresh',$this->nextRefresh,true);
+		$criteria->compare('image',$this->image,true);
+		$criteria->compare('lastUpdate',$this->lastUpdate,true);
+		$criteria->compare('deleted',$this->deleted);
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+		));
+	}
+
 	public function updateStatus($statusId){
 
 		$date = new DateTime();
@@ -103,26 +154,6 @@ class Userinfo extends CActiveRecord
 	//	$this->lastUpdate = $date;
 		$this->save();
 
-	}
-
-	public function search()
-	{
-		// @todo Please modify the following code to remove attributes that should not be searched.
-
-		$criteria=new CDbCriteria;
-
-		$criteria->compare('id',$this->id);
-		$criteria->compare('lvl_id',$this->lvl_id);
-		$criteria->compare('rfidTag',$this->rfidTag,true);
-		$criteria->compare('gender',$this->gender,true);
-		$criteria->compare('email',$this->email,true);
-		$criteria->compare('currentExp',$this->currentExp);
-		$criteria->compare('status_id',$this->status_id);
-		$criteria->compare('lastUpdate',$this->lastUpdate,true);
-
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
 	}
 
 	/**

@@ -62,7 +62,18 @@ class SiteController extends Controller
 				// if rfid tag not registered to database
 			}
 			else{
-			
+				$lvlModel = $this->loadLvlModel(array($userInfo['lvl_id']));
+				if($lvlModel === null){
+					
+				}	
+				else{
+					if(($userInfo->stamina + 20) > $lvlModel->maxStamina)
+						$userInfo->stamina = (int)$lvlModel->maxStamina;
+					else
+						$userInfo->stamina += 20;
+					
+					$userInfo->save();
+				}
  				$userCurrentBar = $this->loadUserCurrentBarModel(array($userInfo['id']));
 				if($userCurrentBar === null){	
 				}
@@ -118,18 +129,24 @@ class SiteController extends Controller
 
 	public function actionPurchase(){
 
-		if(isset($_GET['rfid']) && isset($_GET['exp'])){
+		if(isset($_GET['id']) && isset($_GET['exp'])){
 
-			$userInfo = $this->loadUserInfoModel(array($_GET['rfid']), 'rfidTag');	
+			$userInfo = $this->loadUserInfoModel(array($_GET['id']), 'id');	
 			if($userInfo === null){
 
 			}
 			else{
+				
 				$lvlModel = $this->loadLvlModel(array($userInfo['lvl_id']));
 				if($lvlModel === null){
 					
 				}	
 				else{
+					if(($userInfo->stamina + 20) > $lvlModel->maxStamina)
+						$userInfo->stamina = (int)$lvlModel->maxStamina;
+					else
+						$userInfo->stamina += 20;
+
 					$currentExp = $userInfo['currentExp'] + $_GET['exp'];
 					if($currentExp > $lvlModel['expNeeded']){
 						$userInfo['lvl_id'] = $userInfo['lvl_id'] + 1;
@@ -176,18 +193,17 @@ class SiteController extends Controller
 
 		if(isset($_GET['username']) && isset($_GET['password'])){
 
-			$model['username'] = $_GET['username'];
-			$model['password'] = $_GET['password'];
+			$model->username = $_GET['username'];
+			$model->password = $_GET['password'];
 
 			$user = $model->login();
 			if($user === null){
 				print(json_encode(array('error'=>'1')));
 			}
 			else{
-
-				$userInfo = $this->loadUserInfoModel(array($user->id),'id');
-				$rows1[] = $user->attributes;
-				$rows2[] = $userInfo->attributes;
+				$userInfo = $this->loadUserInfoModel(array($user->id),'log_id');
+				$rows1[] = array('username'=>$user->username);
+				$rows2[] = array('id'=>$userInfo->id,'stamina'=>$userInfo->stamina, 'image'=>$userInfo->image);
 				print(json_encode(array('error'=>'0','userlog'=>$rows1,'userinfo'=>$rows2)));	
 			}
 		}
@@ -196,17 +212,18 @@ class SiteController extends Controller
 	public function actionSearchProfile(){
 
 		if(isset($_GET['id'])){
-			$userInfo = Userinfo::model()->with('userlogs','userlvl','userstat')->findByPk($_GET['id']);
+			$userInfo = Userinfo::model()->findByPk($_GET['id']);
 			if($userInfo === null){
 				print(json_encode(array('error'=>'1')));
 			}
 			else{
+				$userLogModel = Userlog::model()->findByPk($userInfo->log_id);
 				$lvlModel = Level::model()->findByPk($userInfo->lvl_id);
 				$statModel = Status::model()->findByPk($userInfo->status_id);
-				$rows[] = array('username'=>$userInfo->userlogs->username, 'level'=>$userInfo->lvl_id,
+				$rows[] = array('username'=>$userLogModel->username, 'level'=>$userInfo->lvl_id,
 								'title'=>$lvlModel->aliasName,'currentExp'=>$userInfo->currentExp, 'nextLevel'=>$lvlModel->expNeeded,
-								'status_id'=>$userInfo->status_id, 'status'=>$statModel->status,
-								'gender'=>$userInfo->gender, 'email'=>$userInfo->email);
+								'status_id'=>$userInfo->status_id, 'status'=>$statModel->status, 'stamina'=>$userInfo->stamina,
+								'gender'=>$userInfo->gender, 'email'=>$userInfo->email, 'image'=>$userInfo->image);
 				print(json_encode(array('error'=>'0','data'=>$rows)));
 			}			
 		}
@@ -229,8 +246,9 @@ class SiteController extends Controller
 			$users = Usercurrentbar::model()->findAll('bar_id=?',array($_GET['bar']));
 			if(!empty($users)){
 				foreach($users as $user){
-					$userInfo = Userlog::model()->find('user_id=?',array($user->user_id));
-					$rows[] = array('id'=>$userInfo->id,'username'=>$userInfo->username);
+					$userInfo = Userinfo::model()->findByPk($user->user_id);
+					$userLogModel = Userlog::model()->findByPk($userInfo->log_id);
+					$rows[] = array('id'=>$userInfo->id,'username'=>$userLogModel->username, 'image'=>$userInfo->image, 'status_id'=>$userInfo->status_id);
 				}
 				print(json_encode(array('users'=>$rows)));
 			}
@@ -271,13 +289,58 @@ class SiteController extends Controller
 		return $this->_lvlModel;
 	}
 
+
+	public function actionRefreshStamina(){
+		if(isset($_GET['id'])){
+			$id = $_GET['id'];
+			$model = Userinfo::model()->findByPk($id);
+			$lvlModel = Level::model()->findByPk($model->lvl_id);
+			if(!empty($model)){
+				if(strtotime($model->nextRefresh) < strtotime('now')) {
+					$model->nextRefresh = DateTime::createFromFormat('Y-m-d', date('Y-m-d'))->modify('+1 day')->format('Y-m-d');
+					$model->stamina = $lvlModel->maxStamina;
+					if($model->save()){
+						$row[] = array('stamina'=>$model->stamina);
+						print(json_encode(array('flag'=>'true','data'=>$row)));
+					}
+					else
+						print(json_encode(array('flag'=>'false')));
+				}
+				else
+					print(json_encode(array('flag'=>'false')));			
+			}
+		}
+	}
+
+	public function actionSearchUsers(){
+		if(isset($_GET['searchText'])){
+			$searchText = $_GET['searchText'];
+			$criteria = new CDbCriteria();
+			$criteria->condition("username LIKE :text");
+			$criteria->params = array(':text' => trim($searchText) . '%');
+			
+			//$models = User
+				$userInfo = Userinfo::model()->findByPk($user->user_id);
+					$userLogModel = Userlog::model()->findByPk($userInfo->log_id);
+		}
+	}
+
+
+
+
+	// FOR MINGLE //
+
 	public function actionGetMingleRequests(){
 		if(isset($_GET['id'])){
-			$models = Mingle::model()->findAll('receiver_id=?',array($_GET['id']));
+			$criteria = new CDbCriteria;
+			$criteria->addInCondition('receiver_id',array($_GET['id']));
+			$criteria->addInCondition('user_token', array(0));
+			$models = Mingle::model()->findAll($criteria);
 			if(!empty($models)){
 				foreach($models as $model){
-					$userModel = Userlog::model()->find('user_id=?',$model->user_id);
-					$rows[] = array('id'=>$model->id,'user_id'=>$model->user_id, 'username'=>$userModel->username);
+					$userInfo = Userinfo::model()->findByPk($model->user_id);
+					$userLogModel = Userlog::model()->findByPk($userInfo->log_id);
+					$rows[] = array('id'=>$model->id,'user_id'=>$model->user_id, 'username'=>$userLogModel->username);
 				}
 				print(json_encode(array('error'=>'0','data'=>$rows)));
 			}		
@@ -306,12 +369,69 @@ class SiteController extends Controller
 		}
 	}
 
+	public function actionConsumeStamina(){
+		if(isset($_GET['id']) && isset($_GET['stamina'])){
+			$userId = $_GET['id'];
+			$stamina = $_GET['stamina'];
+			$model = Userinfo::model()->findByPk($userId);
+			if($model !== null){
+				$model->stamina = (int)$stamina;
+				$model->save();
+				print(json_encode(array('flag'=>'true')));	
+			}
+			else
+				print(json_encode(array('flag'=>'false')));
+		} 
+	}
+
+	public function actionCheckMingleAccept(){
+
+		if(isset($_GET['user_id'])){
+			$criteria = new CDbCriteria();
+			$criteria->addInCondition('user_id',array($_GET['user_id']));
+			$models = Mingle::model()->findAll($criteria);
+			$flag = false;
+			if(!empty($models)){
+				foreach($models as $model){
+					if($model->user_token == 1){
+						$flag = true;
+						$model->receiver_token = 1;
+						$rows[] = array('user_id'=>$model->user_id,'receiver_id'=>$model->receiver_id);
+						$model->save();
+					}
+				}
+				if($flag)
+					print(json_encode(array('flag'=>'true','data'=>$rows)));
+				else
+					print(json_encode(array('flag'=>'false')));
+			}
+			else
+				print(json_encode(array('flag'=>'false')));
+		}
+	}
+
+	public function actionDeleteMingle(){
+
+		$criteria = new CDbCriteria();
+		$criteria->addInCondition('user_id',array($_GET['user_id']));
+		$criteria->addInCondition('receiver_id',array($_GET['receiver_id']));
+		$model = Mingle::model()->find($criteria);
+
+		if(!empty($model)){
+			$model->delete();	
+			//print(json_encode(array($model->user_id,$model->receiver_id)));		
+		}
+	}
+
 	public function actionAcceptMingleRequest(){
 		if(isset($_GET['id'])){
 			$model = Mingle::model()->findByPk($_GET['id']);
 			if($model !== null){
-				$model->delete();
-				print(json_encode(array('flag'=>'true')));
+				$model->user_token = 1;
+				if($model->save())
+					print(json_encode(array('flag'=>'true')));
+				else
+					print(json_encode(array('flag'=>'false')));			
 			}
 			else
 				print(json_encode(array('flag'=>'false')));
@@ -327,6 +447,18 @@ class SiteController extends Controller
 		print(json_encode(array('data'=>$row)));
 
 	}
+
+	public function actionGetStatus(){
+		if(isset($_GET['id'])){
+			$id = $_GET['id'];
+			$model = Status::model()->findByPk($id);
+			$row[] = array('status'=>$model->status);
+			print(json_encode(array('data'=>$row)));
+		}
+	}
+
+
+	// FOR SIGNUP PAGE //
 
 	public function actionCheckUser(){
 
@@ -354,16 +486,44 @@ class SiteController extends Controller
 
 	public function actionSaveUser(){
 
-		if(isset($_POST['LoginForm']))
-		{
-			$model->attributes=$_POST['LoginForm'];
-			// validate user input and redirect to the previous page if valid
-			if($model->validate() && $model->login())
-				$this->redirect(Yii::app()->user->returnUrl);
+		if(isset($_GET['username']) && isset($_GET['password']) && isset($_GET['gender']) && isset($_GET['RFID']) && isset($_GET['email'])){
+
+			$username = $_GET['username'];
+			$password = $_GET['password'];
+			$gender   = $_GET['gender'];
+			$rfid 	  = $_GET['RFID'];
+			$email 	  = $_GET['email'];
+
+			$userInfoModel = new Userinfo();
+			$userLogModel = new Userlog();
+			$userBarModel = new Usercurrentbar();
+
+			$userLogModel->username = $username;
+			$userLogModel->password = $password;
+			if($userLogModel->save()){
+				$userInfoModel->rfidTag = $rfid;
+				$userInfoModel->gender  = $gender;
+				$userInfoModel->email   = $email;
+				$userInfoModel->log_id  = $userLogModel->id;
+				if($userInfoModel->save()){
+					$userBarModel->user_id  = $userInfoModel->id;
+					if($userBarModel->save())
+						print(json_encode(array('flag'=>'true')));
+					else
+						print(json_encode(array('flag'=>'false')));
+				}
+				else
+					print(json_encode(array('flag'=>'false')));
+			}
+			else
+				print(json_encode(array('flag'=>'false')));
 		}
 
 	}
 
+
+	// FOR SYNC //
+	
 	public function getModifiedBarInfo(){
 
 		if(isset($_GET['lastSyncDate'])){
@@ -417,14 +577,23 @@ class SiteController extends Controller
 
 	public function actionGetAllUsers(){
 
-        $models = Userinfo::model()->with('userlogs','userlvl', 'userstat','usercurrentbars')->findAll();
+        $models = Userinfo::model()->with('usercurrentbars')->findAll();
 		foreach ($models as $model){
-			$lvlModel = Level::model()->findByPk($model->lvl_id);
-			$statModel = Status::model()->findByPk($model->status_id);
-			$rows[] = array('id'=>$model->id, 'username'=>$model->userlogs->username, 'level'=>$model->lvl_id,
-							'title'=>$lvlModel->aliasName,'currentExp'=>$model->currentExp,'status'=>$statModel->status,
-							'gender'=>$model->gender, 'email'=>$model->email,'bar_id'=>$model->usercurrentbars->bar_id,
-							'lastUpdate'=>$model->lastUpdate,'deleted'=>$model->deleted);
+			$userLogModel = Userlog::model()->findByPk($model->log_id);
+			$lvlModel 	  = Level::model()->findByPk($model->lvl_id);
+			$statModel 	  = Status::model()->findByPk($model->status_id);
+
+			$rows[] = array('id'=>$model->id, 
+							'username'=>$userLogModel->username, 
+							'level'=>$model->lvl_id,
+							'title'=>$lvlModel->aliasName,
+							'currentExp'=>$model->currentExp,
+							'status'=>$statModel->status,
+							'gender'=>$model->gender, 
+							'email'=>$model->email, 
+							'bar_id'=>$model->usercurrentbars->bar_id,
+							'lastUpdate'=>$model->lastUpdate,
+							'deleted'=>$model->deleted);
 		}
 		print(json_encode(array('data'=>$rows)));
 
@@ -440,15 +609,15 @@ class SiteController extends Controller
 			$criteria->params = array(':date'=>$lastSync);
 			$criteria->order = 't.lastUpdate DESC';
 
-			$models = Userinfo::model()->with('userlogs','userlvl','userstat')->findAll($criteria);
+			$models = Userinfo::model()->with('usercurrentbars')->findAll($criteria);
 			if(!empty($models)){
 
 				foreach($models as $model){
+					$userLogModel = Userlog::model()->findByPk($model->log_id);
 					$lvlModel = Level::model()->findByPk($model->lvl_id);
 					$statModel = Status::model()->findByPk($model->status_id);
-					$currentBarModel = Usercurrentbar::model()->findByPk($model->id);
-					$rows[] = array('id'=>$model->id,'username'=>$model->userlogs->username, 'level'=>$model->lvl_id, 'title'=>$lvlModel->aliasName,
-								    'currentExp'=>$model->currentExp,'status'=>$statModel->status,'bar_id'=>$currentBarModel->bar_id, 'lastUpdate'=>$model->lastUpdate,'deleted'=>$model->deleted);
+					$rows[] = array('id'=>$model->id,'username'=>$userLogModel->username, 'level'=>$model->lvl_id, 'title'=>$lvlModel->aliasName,
+								    'currentExp'=>$model->currentExp,'status'=>$statModel->status,'bar_id'=>$model->usercurrentbars->bar_id, 'lastUpdate'=>$model->lastUpdate,'deleted'=>$model->deleted);
 				}
 				print(json_encode(array('error'=>'0','data'=>$rows)));
 			}

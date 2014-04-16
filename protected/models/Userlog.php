@@ -5,12 +5,8 @@
  *
  * The followings are the available columns in table '{{userlog}}':
  * @property integer $id
- * @property integer $user_id
  * @property string $username
  * @property string $password
- *
- * The followings are the available model relations:
- * @property Userinfo $user
  */
 class Userlog extends CActiveRecord
 {
@@ -31,11 +27,10 @@ class Userlog extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('username, password', 'required'),
-			array('user_id', 'numerical', 'integerOnly'=>true),
 			array('username, password', 'length', 'max'=>128),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, user_id, username, password', 'safe', 'on'=>'search'),
+			array('id, username, password', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -47,7 +42,7 @@ class Userlog extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'user' => array(self::BELONGS_TO, 'Userinfo', 'user_id'),
+			'user' => array(self::BELONGS_TO, 'Userinfo', 'id'),
 		);
 	}
 
@@ -58,7 +53,6 @@ class Userlog extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'user_id' => 'User',
 			'username' => 'Username',
 			'password' => 'Password',
 		);
@@ -83,7 +77,6 @@ class Userlog extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('user_id',$this->user_id);
 		$criteria->compare('username',$this->username,true);
 		$criteria->compare('password',$this->password,true);
 
@@ -108,6 +101,7 @@ class Userlog extends CActiveRecord
 	        }
 		}
 	}
+
 
 	/**
 	 * Returns the static model of the specified AR class.

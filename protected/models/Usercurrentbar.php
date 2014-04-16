@@ -35,7 +35,6 @@ class Usercurrentbar extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('bar_id, entryStatus, lastUpdate', 'required'),
 			array('user_id, bar_id, entryStatus', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
@@ -44,6 +43,15 @@ class Usercurrentbar extends CActiveRecord
 			array('lastUpdate','default',
               	  'value'=>new CDbExpression('NOW()'),
               	  'setOnEmpty'=>false,'on'=>'update'),
+			array('lastUpdate','default',
+              	  'value'=>new CDbExpression('NOW()'),
+              	  'setOnEmpty'=>false,'on'=>'insert'),
+			array('bar_id','default',
+              	  'value'=>0,
+              	  'setOnEmpty'=>false,'on'=>'insert'),
+			array('entryStatus','default',
+              	  'value'=>0,
+              	  'setOnEmpty'=>false,'on'=>'insert'),
 		);
 	}
 

@@ -40,7 +40,7 @@ class Status extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'status' => array(self::BELONGS_TO, 'Userinfo', 'status_id'),
+			'status' => array(self::BELONGS_TO, 'Userinfo', 'id'),
 		);
 	}
 
