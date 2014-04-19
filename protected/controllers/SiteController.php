@@ -229,6 +229,22 @@ class SiteController extends Controller
 		}
 	}
 
+	public function actionSearchBar(){
+
+		if(isset($_GET['bar_id'])){
+
+			$bar_id = $_GET['bar_id'];
+			$barModel = Barinfo::model()->findByPk($bar_id);
+
+			if(!empty($barModel)){
+				$rows[] = $barModel->attributes;
+				print(json_encode(array('flag'=>'true','data'=>$rows)));
+			}
+			else
+				print(json_encode(array('flag'=>'false')));
+		}
+	}
+
 	public function actionSaveStatus(){
 
 		if(isset($_GET['id']) && isset($_GET['statusId'])){
