@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 16, 2014 at 10:34 AM
+-- Generation Time: Apr 30, 2014 at 09:01 AM
 -- Server version: 5.1.53
 -- PHP Version: 5.3.4
 
@@ -52,13 +52,17 @@ CREATE TABLE IF NOT EXISTS `tbl_barinfo` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
   `area_id` int(11) NOT NULL,
-  `Category` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `category` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
   `image` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
   `address` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `description` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `daysOpen` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `budget` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `entranceFee` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `popular` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
   `maleCount` int(11) NOT NULL,
   `femaleCount` int(11) NOT NULL,
-  `contactNumber` int(11) NOT NULL,
+  `contactNumber` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
   `mapUrl` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
   `lastUpdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `deleted` int(11) NOT NULL,
@@ -70,23 +74,23 @@ CREATE TABLE IF NOT EXISTS `tbl_barinfo` (
 -- Dumping data for table `tbl_barinfo`
 --
 
-INSERT INTO `tbl_barinfo` (`id`, `name`, `area_id`, `Category`, `image`, `address`, `daysOpen`, `maleCount`, `femaleCount`, `contactNumber`, `mapUrl`, `lastUpdate`, `deleted`) VALUES
-(1, 'Hyve', 1, '', '', '', '', 50, 21, 0, '', '2014-03-31 00:54:31', 0),
-(2, 'Prive', 1, '', '', '', '', 22, 30, 0, '', '2014-04-10 12:40:16', 0),
-(3, 'Imperial', 1, '', '', '', '', 41, 100, 0, '', '2014-04-11 22:23:48', 0),
-(4, 'Urbn', 1, '', '', '', '', 0, 0, 0, '', '2014-04-10 12:40:49', 0),
-(5, 'Aracama', 1, '', '', '', '', 0, 0, 0, '', '2014-04-10 12:40:49', 0),
-(6, 'Haze', 1, '', '', '', '', 0, 0, 0, '', '2014-04-10 12:41:06', 0),
-(7, 'Black Market', 2, '', '', '', '', 0, 0, 0, '', '2014-04-10 12:41:49', 0),
-(8, '71 Gramercy', 2, '', '', '', '', 0, 0, 0, '', '2014-04-10 12:41:49', 0),
-(9, 'Palladium', 2, '', '', '', '', 0, 0, 0, '', '2014-04-10 12:42:17', 0),
-(10, 'Club Icon', 2, '', '', '', '', 0, 0, 0, '', '2014-04-10 12:42:17', 0),
-(11, 'Dragon', 4, '', '', '', '', 0, 0, 0, '', '2014-04-10 12:44:22', 0),
-(12, 'Prime', 4, '', '', '', '', 0, 0, 0, '', '2014-04-10 12:44:27', 0),
-(13, 'Vanity', 4, '', '', '', '', 0, 0, 0, '', '2014-04-10 12:44:31', 0),
-(14, 'Space', 4, '', '', '', '', 0, 0, 0, '', '2014-04-10 12:44:39', 0),
-(15, 'Excess', 4, '', '', '', '', 0, 0, 0, '', '2014-04-10 12:44:35', 0),
-(16, 'Guilly''s', 4, '', '', '', '', 0, 0, 0, '', '2014-04-10 12:44:43', 0);
+INSERT INTO `tbl_barinfo` (`id`, `name`, `area_id`, `category`, `image`, `address`, `description`, `daysOpen`, `budget`, `entranceFee`, `popular`, `maleCount`, `femaleCount`, `contactNumber`, `mapUrl`, `lastUpdate`, `deleted`) VALUES
+(1, 'Hyve', 1, '', '', '', '', '', '', '', '', 51, 21, '0', '', '2014-04-30 00:48:35', 0),
+(2, 'Prive', 1, '', '', '', '', '', '', '', '', 22, 30, '0', '', '2014-04-10 12:40:16', 0),
+(3, 'Imperial', 1, 'Club, Ice Bar', 'imperial.jpg', 'Unit D, The Fort Entertainment Center, 28th Street Corner 5th, BGC, Taguig City ', 'Imperial is a high class bar that provides its customers with an icy feel inside', 'Mon - Thu: 9:00 pm - 4:00 am, Fri - Sat: 9:00 pm - 5:30 am', 'P500 - P750', 'P500', 'Ice Bar environment', 41, 100, '0917-542-8831', '', '2014-04-17 11:23:55', 0),
+(4, 'Urbn', 1, '', '', '', '', '', '', '', '', 0, 0, '0', '', '2014-04-10 12:40:49', 0),
+(5, 'Aracama', 1, '', '', '', '', '', '', '', '', 0, 0, '0', '', '2014-04-10 12:40:49', 0),
+(6, 'Haze', 1, '', '', '', '', '', '', '', '', 0, 0, '0', '', '2014-04-10 12:41:06', 0),
+(7, 'Black Market', 2, '', '', '', '', '', '', '', '', 0, 0, '0', '', '2014-04-10 12:41:49', 0),
+(8, '71 Gramercy', 2, '', '', '', '', '', '', '', '', 0, 0, '0', '', '2014-04-10 12:41:49', 0),
+(9, 'Palladium', 2, '', '', '', '', '', '', '', '', 0, 0, '0', '', '2014-04-10 12:42:17', 0),
+(10, 'Club Icon', 2, '', '', '', '', '', '', '', '', 0, 0, '0', '', '2014-04-10 12:42:17', 0),
+(11, 'Dragon', 4, '', '', '', '', '', '', '', '', 0, 0, '0', '', '2014-04-10 12:44:22', 0),
+(12, 'Prime', 4, '', '', '', '', '', '', '', '', 0, 0, '0', '', '2014-04-10 12:44:27', 0),
+(13, 'Vanity', 4, '', '', '', '', '', '', '', '', 0, 0, '0', '', '2014-04-10 12:44:31', 0),
+(14, 'Space', 4, '', '', '', '', '', '', '', '', 0, 0, '0', '', '2014-04-10 12:44:39', 0),
+(15, 'Excess', 4, '', '', '', '', '', '', '', '', 0, 0, '0', '', '2014-04-10 12:44:35', 0),
+(16, 'Guilly''s', 4, '', '', '', '', '', '', '', '', 0, 0, '0', '', '2014-04-10 12:44:43', 0);
 
 -- --------------------------------------------------------
 
@@ -134,10 +138,10 @@ CREATE TABLE IF NOT EXISTS `tbl_mingle` (
 --
 
 INSERT INTO `tbl_mingle` (`id`, `user_id`, `receiver_id`, `user_token`, `receiver_token`, `lastUpdate`, `deleted`) VALUES
-(26, 9, 1, 0, 0, '2014-04-12 03:32:43', 0),
-(24, 9, 4, 0, 0, '2014-04-10 01:43:15', 0),
-(21, 3, 4, 0, 0, '0000-00-00 00:00:00', 0),
-(22, 4, 3, 0, 0, '0000-00-00 00:00:00', 0);
+(26, 3, 1, 0, 0, '2014-04-26 13:30:03', 0),
+(24, 4, 3, 0, 0, '2014-04-26 13:30:07', 0),
+(21, 2, 3, 0, 0, '2014-04-26 13:30:13', 0),
+(22, 3, 2, 0, 0, '2014-04-26 13:30:17', 0);
 
 -- --------------------------------------------------------
 
@@ -164,6 +168,28 @@ INSERT INTO `tbl_minglearea` (`id`, `area`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tbl_promoterlog`
+--
+
+CREATE TABLE IF NOT EXISTS `tbl_promoterlog` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(128) NOT NULL,
+  `password` varchar(128) NOT NULL,
+  `bar_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `tbl_promoterlog`
+--
+
+INSERT INTO `tbl_promoterlog` (`id`, `username`, `password`, `bar_id`) VALUES
+(1, 'Hyve', 'Hyve', 1),
+(2, 'Imperial', '2', 3);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tbl_status`
 --
 
@@ -183,6 +209,36 @@ INSERT INTO `tbl_status` (`id`, `status`) VALUES
 (3, 'I feel like dancing with someone'),
 (4, 'I''m not quite sure yet'),
 (5, 'Very much ready to Mingle');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_taglist`
+--
+
+CREATE TABLE IF NOT EXISTS `tbl_taglist` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `rfidTag` varchar(128) NOT NULL,
+  `unique_id` varchar(4) NOT NULL,
+  `isRegistered` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+
+--
+-- Dumping data for table `tbl_taglist`
+--
+
+INSERT INTO `tbl_taglist` (`id`, `rfidTag`, `unique_id`, `isRegistered`) VALUES
+(1, '0000000001', '0ABC', 1),
+(2, '0000000002', 'BSD2', 1),
+(3, '0000000003', 'SDS2', 1),
+(4, '0000000004', 'ASW6', 1),
+(5, '0000000005', '00A2', 1),
+(6, '0000000006', '123A', 1),
+(7, '0000000007', 'LKI2', 1),
+(8, '0000000008', '090T', 0),
+(9, '0000000009', 'BJU3', 0),
+(10, '0000000010', '3Y57', 0);
 
 -- --------------------------------------------------------
 
@@ -219,19 +275,20 @@ CREATE TABLE IF NOT EXISTS `tbl_usercurrentbar` (
   `lastUpdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_id` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=13 ;
 
 --
 -- Dumping data for table `tbl_usercurrentbar`
 --
 
 INSERT INTO `tbl_usercurrentbar` (`id`, `user_id`, `bar_id`, `entryStatus`, `lastUpdate`) VALUES
-(1, 1, 3, 1, '2014-04-12 02:24:10'),
-(3, 3, 3, 1, '2014-04-01 22:05:08'),
-(4, 4, 3, 0, '2014-04-12 02:24:05'),
-(6, 8, 3, 0, '2014-04-12 02:24:02'),
-(7, 9, 3, 1, '2014-04-09 21:59:23'),
-(9, 11, 3, 0, '2014-04-12 02:23:57');
+(1, 1, 3, 1, '2014-04-30 15:33:15'),
+(3, 2, 3, 1, '2014-04-26 13:29:31'),
+(4, 3, 3, 1, '2014-04-30 15:26:46'),
+(6, 4, 3, 1, '2014-04-30 15:26:50'),
+(7, 5, 0, 0, '2014-04-30 15:27:10'),
+(9, 6, 3, 1, '2014-04-30 15:26:56'),
+(12, 11, 0, 0, '2014-04-26 14:46:04');
 
 -- --------------------------------------------------------
 
@@ -241,33 +298,34 @@ INSERT INTO `tbl_usercurrentbar` (`id`, `user_id`, `bar_id`, `entryStatus`, `las
 
 CREATE TABLE IF NOT EXISTS `tbl_userinfo` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `rfid` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `log_id` int(11) NOT NULL,
   `lvl_id` int(11) NOT NULL,
-  `rfidTag` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
   `gender` text COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
   `currentExp` int(11) NOT NULL,
   `status_id` int(11) NOT NULL,
+  `status` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
   `stamina` int(11) NOT NULL,
   `nextRefresh` date NOT NULL,
   `image` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
   `lastUpdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `deleted` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `rfidTag` (`rfidTag`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=12 ;
 
 --
 -- Dumping data for table `tbl_userinfo`
 --
 
-INSERT INTO `tbl_userinfo` (`id`, `log_id`, `lvl_id`, `rfidTag`, `gender`, `email`, `currentExp`, `status_id`, `stamina`, `nextRefresh`, `image`, `lastUpdate`, `deleted`) VALUES
-(1, 1, 1, '0001', 'Male', 'lrgbairan@gmail.com', 99, 5, 100, '2014-04-13', '1.jpg', '2014-04-12 18:48:27', 0),
-(3, 3, 3, '0003', 'Male', 'emman@gmail.com', 50, 1, 140, '2014-04-12', '3.jpg', '2014-04-12 02:49:51', 0),
-(4, 4, 1, '0004', 'Male', 'marvin@gmail.com', 100, 5, 0, '2014-04-12', '4.jpg', '2014-04-12 02:49:55', 0),
-(8, 18, 1, '0005', 'Male', 'bairan@gmail.com', 0, 2, 0, '0000-00-00', '8.jpg', '2014-04-12 02:50:03', 0),
-(9, 19, 1, '1010101016', 'male', 'naughtyson@gmail.com', 80, 5, 100, '2014-04-17', '9.jpg', '2014-04-16 15:22:37', 0),
-(11, 22, 1, '1010101099', 'male', 'lrgbairan@gmail.com', 0, 1, 100, '2014-04-12', '11.jpg', '2014-04-12 02:50:18', 0);
+INSERT INTO `tbl_userinfo` (`id`, `rfid`, `log_id`, `lvl_id`, `gender`, `email`, `currentExp`, `status_id`, `status`, `stamina`, `nextRefresh`, `image`, `lastUpdate`, `deleted`) VALUES
+(1, '0000000001', 1, 1, 'Male', 'lrgbairan@gmail.com', 99, 2, 'Live life to the fullest', 100, '2014-05-01', '1.jpg', '2014-04-30 16:59:39', 0),
+(2, '0000000002', 3, 3, 'Male', 'emman@gmail.com', 50, 1, '', 140, '2014-04-12', '3.jpg', '2014-04-26 13:29:00', 0),
+(3, '0000000003', 4, 1, 'Male', 'marvin@gmail.com', 100, 2, '', 0, '2014-04-12', '4.jpg', '2014-04-26 13:29:05', 0),
+(4, '0000000004', 18, 1, 'Male', 'bairan@gmail.com', 0, 2, '', 0, '0000-00-00', '8.jpg', '2014-04-26 13:29:10', 0),
+(5, '0000000005', 19, 1, 'male', 'naughtyson@gmail.com', 80, 2, '', 100, '2014-04-23', '9.jpg', '2014-04-26 13:29:14', 0),
+(6, '0000000006', 22, 1, 'male', 'lrgbairan@gmail.com', 0, 1, '', 100, '2014-04-12', '11.jpg', '2014-04-26 13:29:19', 0),
+(11, '0000000007', 27, 1, 'Male', 'dozmic@gmail.com', 0, 1, '', 100, '2014-04-27', '', '2014-04-26 14:46:04', 0);
 
 -- --------------------------------------------------------
 
@@ -281,7 +339,7 @@ CREATE TABLE IF NOT EXISTS `tbl_userlog` (
   `password` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=23 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=28 ;
 
 --
 -- Dumping data for table `tbl_userlog`
@@ -293,7 +351,8 @@ INSERT INTO `tbl_userlog` (`id`, `username`, `password`) VALUES
 (4, 'marvin', 'haduca'),
 (18, 'bairan', 'b'),
 (19, 'naughtyson', 'naughtyson'),
-(22, 'lrgbairan', 'protos');
+(22, 'lrgbairan', 'protos'),
+(27, 'dozmic', 'dozmic');
 
 --
 -- Constraints for dumped tables
@@ -303,4 +362,4 @@ INSERT INTO `tbl_userlog` (`id`, `username`, `password`) VALUES
 -- Constraints for table `tbl_usercurrentbar`
 --
 ALTER TABLE `tbl_usercurrentbar`
-  ADD CONSTRAINT `tbl_usercurrentbar_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `tbl_userinfo` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `tbl_usercurrentbar_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `tbl_userinfo` (`id`) ON DELETE CASCADE;
