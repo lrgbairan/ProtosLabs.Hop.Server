@@ -56,12 +56,14 @@ class SiteController extends Controller
 	public function actionEnter()
 	{
 		if(isset($_GET['rfid']) && isset($_GET['barId'])){
+			$rfid = $_GET['rfid'];
 			$barId = array($_GET['barId']);
-			$userInfo = $this->loadUserInfoModel(array($_GET['rfid']),'rfidTag');
+			$userInfo = Userinfo::model()->find("rfid=?",array($rfid));
 			if($userInfo === null){
 				// if rfid tag not registered to database
 			}
 			else{
+				$userLog = Userlog::model()->find("id=?",array($userInfo->log_id));
 				$lvlModel = $this->loadLvlModel(array($userInfo['lvl_id']));
 				if($lvlModel === null){
 					
@@ -74,11 +76,13 @@ class SiteController extends Controller
 					
 					$userInfo->save();
 				}
- 				$userCurrentBar = $this->loadUserCurrentBarModel(array($userInfo['id']));
+ 				$userCurrentBar = $this->loadUserCurrentBarModel(array($userInfo->id));
 				if($userCurrentBar === null){	
 				}
 				else{
 					$userCurrentBar->updateStatus($userInfo,$_GET['barId']);
+					$rows[] = array("id"=>$userInfo->id,"username"=>$userLog->username,"email"=>$userInfo->email);
+					print(json_encode(array("flag"=>"true","data"=>$rows)));
 				}				
 			}
 		}		
@@ -133,7 +137,7 @@ class SiteController extends Controller
 
 			$userInfo = $this->loadUserInfoModel(array($_GET['id']), 'id');	
 			if($userInfo === null){
-
+				print(json_encode(array("flag"=>"false")));
 			}
 			else{
 				
@@ -151,10 +155,12 @@ class SiteController extends Controller
 					if($currentExp > $lvlModel['expNeeded']){
 						$userInfo['lvl_id'] = $userInfo['lvl_id'] + 1;
 						$userInfo['currentExp'] = $userInfo['currentExp'] - $lvlModel['expNeeded'];
-						$userInfo->save();
 					}
-				}		
+					$userInfo->save();
+					print(json_encode(array("flag"=>"true")));
+				}
 			}
+			print(json_encode(array("flag"=>"false")));
 		}
 	}
 	
@@ -209,6 +215,40 @@ class SiteController extends Controller
 		}
 	} 
 
+	public function actionPromoterLogin(){
+
+		$model = new Promoterlog();
+
+		if(isset($_GET['username']) && isset($_GET['password'])){
+
+			$model->username = $_GET['username'];
+			$model->password = $_GET['password'];
+
+			$promoter = $model->login();
+			if($promoter === null){
+				print(json_encode(array('flag'=>'false')));
+			}
+			else{
+				$rows[] = array('id'=>$promoter->id,'bar_id'=>$promoter->bar_id);
+				print(json_encode(array('flag'=>'true','promoter'=>$rows)));	
+			}
+		}
+	}
+
+	public function actionPromoterGetBarInfo(){
+
+		if(isset($_GET['bar_id'])){
+			$bar_id = $_GET['bar_id'];
+			$model = Barinfo::model()->findByPk($bar_id);
+			if(!empty($model)){
+				$rows[] = $model->attributes;
+				print(json_encode(array('flag'=>'true','data'=>$rows)));
+			}
+			else
+				print(json_encode(array('flag'=>'false')));
+		}
+	}
+
 	public function actionSearchProfile(){
 
 		if(isset($_GET['id'])){
@@ -219,11 +259,10 @@ class SiteController extends Controller
 			else{
 				$userLogModel = Userlog::model()->findByPk($userInfo->log_id);
 				$lvlModel = Level::model()->findByPk($userInfo->lvl_id);
-				$statModel = Status::model()->findByPk($userInfo->status_id);
-				$rows[] = array('username'=>$userLogModel->username, 'level'=>$userInfo->lvl_id,
-								'title'=>$lvlModel->aliasName,'currentExp'=>$userInfo->currentExp, 'nextLevel'=>$lvlModel->expNeeded,
-								'status_id'=>$userInfo->status_id, 'status'=>$statModel->status, 'stamina'=>$userInfo->stamina,
-								'gender'=>$userInfo->gender, 'email'=>$userInfo->email, 'image'=>$userInfo->image);
+				$rows[] = array('RFID'=>$userInfo->rfid, 'username'=>$userLogModel->username, 'password'=>$userLogModel->password, 
+								'level'=>$userInfo->lvl_id,'title'=>$lvlModel->aliasName,'currentExp'=>$userInfo->currentExp, 'nextLevel'=>$lvlModel->expNeeded,
+								'status_id'=>$userInfo->status_id,'status'=>$userInfo->status, 'stamina'=>$userInfo->stamina,'gender'=>$userInfo->gender, 'email'=>$userInfo->email, 
+								'image'=>$userInfo->image);
 				print(json_encode(array('error'=>'0','data'=>$rows)));
 			}			
 		}
@@ -266,8 +305,10 @@ class SiteController extends Controller
 					$userLogModel = Userlog::model()->findByPk($userInfo->log_id);
 					$rows[] = array('id'=>$userInfo->id,'username'=>$userLogModel->username, 'image'=>$userInfo->image, 'status_id'=>$userInfo->status_id);
 				}
-				print(json_encode(array('users'=>$rows)));
+				print(json_encode(array('flag'=>'true','users'=>$rows)));
 			}
+			else
+				print(json_encode(array('flag'=>'false')));
 		}
 	}
 
@@ -488,17 +529,77 @@ class SiteController extends Controller
 		}
 	}
 
-	public function actionCheckRFID(){
-		if(isset($_GET['rfid'])){
+	public function actionValidateTagId(){
+
+		if(isset($_GET['rfid']) && isset($_GET['uid'])){
+
 			$rfid = $_GET['rfid'];
-			$model = Userinfo::model()->find('rfidTag=?',array($rfid));
-			if(!empty($model))
-				print(json_encode(array('flag'=>'false')));
-			else
+			$uid  = $_GET['uid'];
+			$model = $this->SearchTagId($rfid,$uid);
+			if($model !== null && $model->isRegistered == 0)
 				print(json_encode(array('flag'=>'true')));
+			else
+				print(json_encode(array('flag'=>'false')));
+
 		}
 	}
 
+	public function actionUpdateRFID(){
+
+		if(isset($_GET['id']) && isset($_GET['rfid']) && isset($_GET['uid'])){
+			$rfid = $_GET['rfid'];
+			$id   = $_GET['id'];
+			$uid  = $_GET['uid'];
+
+			$model = $this->SearchTagId($rfid,$uid);
+			if($model !== null){
+				$model->isRegistered = 1;
+				$userInfo = Userinfo::model()->find('id=?',array($id));
+				if(!empty($userInfo)){
+					$userInfo->rfid = $rfid;
+					if($userInfo->save() && $model->save())
+						print(json_encode(array('flag'=>'true')));
+					else
+						print(json_encode(array('flag'=>'false')));		
+				}		
+			}
+		}
+	}
+
+	public function actionUpdatePass(){
+
+		if(isset($_GET["id"]) && isset($_GET["password"])){
+			$id = $_GET["id"];
+			$password = $_GET["password"];
+			$userModel = Userinfo::model()->findByPk($id);
+			if(!empty($userModel)){
+				$logModel = Userlog::model()->findByPk($userModel->log_id);
+				if(!empty($logModel)){
+					$logModel->password = $password;
+					if($logModel->save())
+						print(json_encode(array("flag"=>"true")));
+					else
+						print(json_encode(array("flag"=>"false")));
+				}
+			}
+			
+		}
+	}
+
+	public function SearchTagId($rfidTag,$unique_id){
+
+			$rfid = $rfidTag;
+			$uid  = $unique_id;
+			$criteria = new CDbCriteria;
+			$criteria->addInCondition('rfidTag',array($rfid));
+			$criteria->addInCondition('unique_id',array($uid));
+			$model = Taglist::model()->find($criteria);
+
+			if(!empty($model))
+				return $model;
+			else
+				return null;
+	}
 
 	public function actionSaveUser(){
 
@@ -513,31 +614,33 @@ class SiteController extends Controller
 			$userInfoModel = new Userinfo();
 			$userLogModel = new Userlog();
 			$userBarModel = new Usercurrentbar();
+			$tagModel = Taglist::model()->find('rfidTag=?',array($rfid));
 
 			$userLogModel->username = $username;
 			$userLogModel->password = $password;
 			if($userLogModel->save()){
-				$userInfoModel->rfidTag = $rfid;
-				$userInfoModel->gender  = $gender;
-				$userInfoModel->email   = $email;
-				$userInfoModel->log_id  = $userLogModel->id;
-				if($userInfoModel->save()){
-					$userBarModel->user_id  = $userInfoModel->id;
-					if($userBarModel->save())
-						print(json_encode(array('flag'=>'true')));
+				$tagModel->isRegistered = 1;
+				if($tagModel->save()){
+					$userInfoModel->rfid = $rfid;
+					$userInfoModel->gender  = $gender;
+					$userInfoModel->email   = $email;
+					$userInfoModel->log_id  = $userLogModel->id;
+					if($userInfoModel->save()){
+						$userBarModel->user_id  = $userInfoModel->id;
+						if($userBarModel->save())
+							print(json_encode(array('flag'=>'true')));
+						else
+							print(json_encode(array('flag'=>'false')));
+					}
 					else
 						print(json_encode(array('flag'=>'false')));
-				}
-				else
-					print(json_encode(array('flag'=>'false')));
+				}	
 			}
 			else
 				print(json_encode(array('flag'=>'false')));
 		}
 
 	}
-
-
 	// FOR SYNC //
 	
 	public function getModifiedBarInfo(){

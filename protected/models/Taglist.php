@@ -1,25 +1,21 @@
 <?php
 
 /**
- * This is the model class for table "{{mingle}}".
+ * This is the model class for table "{{taglist}}".
  *
- * The followings are the available columns in table '{{mingle}}':
+ * The followings are the available columns in table '{{taglist}}':
  * @property integer $id
- * @property integer $user_id
- * @property integer $receiver_id
- * @property integer $user_token
- * @property integer $receiver_token
- * @property string $lastUpdate
- * @property integer $deleted
+ * @property string $rfidTag
+ * @property integer $isRegistered
  */
-class Mingle extends CActiveRecord
+class Taglist extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return '{{mingle}}';
+		return '{{taglist}}';
 	}
 
 	/**
@@ -30,28 +26,11 @@ class Mingle extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('user_id, receiver_id', 'required'),
-			array('user_id, receiver_id, user_token, receiver_token, deleted', 'numerical', 'integerOnly'=>true),
-			array('lastUpdate', 'safe'),
+			array('isRegistered', 'numerical', 'integerOnly'=>true),
+			array('rfidTag', 'length', 'max'=>128),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, user_id, receiver_id, user_token, receiver_token, lastUpdate, deleted', 'safe', 'on'=>'search'),
-
-			array('lastUpdate','default',
-              	  'value'=>new CDbExpression('NOW()'),
-              	  'setOnEmpty'=>false,'on'=>'update'),
-			array('lastUpdate','default',
-              	  'value'=>new CDbExpression('NOW()'),
-              	  'setOnEmpty'=>false,'on'=>'insert'),
-			array('deleted','default',
-              	  'value'=>'0',
-              	  'setOnEmpty'=>false,'on'=>'insert'),
-			array('user_token','default',
-              	  'value'=> 0,
-              	  'setOnEmpty'=>false,'on'=>'insert'),
-			array('receiver_token','default',
-              	  'value'=> 0,
-              	  'setOnEmpty'=>false,'on'=>'insert'),
+			array('id, rfidTag, isRegistered', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -73,12 +52,8 @@ class Mingle extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'user_id' => 'User',
-			'receiver_id' => 'Receiver',
-			'user_token' => 'User Token',
-			'receiver_token' => 'Receiver Token',
-			'lastUpdate' => 'Last Update',
-			'deleted' => 'Deleted',
+			'rfidTag' => 'Rfid Tag',
+			'isRegistered' => 'Is Registered',
 		);
 	}
 
@@ -101,23 +76,25 @@ class Mingle extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('user_id',$this->user_id);
-		$criteria->compare('receiver_id',$this->receiver_id);
-		$criteria->compare('user_token',$this->user_token);
-		$criteria->compare('receiver_token',$this->receiver_token);
-		$criteria->compare('lastUpdate',$this->lastUpdate,true);
-		$criteria->compare('deleted',$this->deleted);
+		$criteria->compare('rfidTag',$this->rfidTag,true);
+		$criteria->compare('isRegistered',$this->isRegistered);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}
 
+	// public function registerTag($rfid){
+	// 	$model = $this->find('rfidTag=?',array($rfid));
+	// 	$model->isRegistered = 1;
+	// 	$model->save();
+	// } 
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Mingle the static model class
+	 * @return Taglist the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

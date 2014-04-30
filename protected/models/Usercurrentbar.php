@@ -40,6 +40,7 @@ class Usercurrentbar extends CActiveRecord
 			// @todo Please remove those attributes that should not be searched.
 			array('id, user_id, bar_id, entryStatus, lastUpdate', 'safe', 'on'=>'search'),
 
+
 			array('lastUpdate','default',
               	  'value'=>new CDbExpression('NOW()'),
               	  'setOnEmpty'=>false,'on'=>'update'),
@@ -136,8 +137,6 @@ class Usercurrentbar extends CActiveRecord
 	   	else if($this->entryStatus === '0')
 	   		Barinfo::model()->decCounter($this->_userInfo,array($this->_barId));
 	}
-	
-
 
 	/**
 	 * Returns the static model of the specified AR class.

@@ -5,9 +5,9 @@
  *
  * The followings are the available columns in table '{{userinfo}}':
  * @property integer $id
+ * @property string $rfid
  * @property integer $log_id
  * @property integer $lvl_id
- * @property string $rfidTag
  * @property string $gender
  * @property string $email
  * @property integer $currentExp
@@ -39,12 +39,13 @@ class Userinfo extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('rfidTag, gender, email', 'required'),
+			array('rfid, gender, email', 'required'),
 			array('log_id, lvl_id, currentExp, status_id, stamina, deleted', 'numerical', 'integerOnly'=>true),
-			array('rfidTag, email, image', 'length', 'max'=>128),
+			array('rfid', 'length', 'max'=>20),
+			array('email, image', 'length', 'max'=>128),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, log_id, lvl_id, rfidTag, gender, email, currentExp, status_id, stamina, nextRefresh, image, lastUpdate, deleted', 'safe', 'on'=>'search'),
+			array('id, rfid, log_id, lvl_id, gender, email, currentExp, status_id, stamina, nextRefresh, image, lastUpdate, deleted', 'safe', 'on'=>'search'),
 
 			array('lastUpdate','default',
               	  'value'=>new CDbExpression('NOW()'),
@@ -92,9 +93,9 @@ class Userinfo extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
+			'rfid' => 'Rfid',
 			'log_id' => 'Log',
 			'lvl_id' => 'Lvl',
-			'rfidTag' => 'Rfid Tag',
 			'gender' => 'Gender',
 			'email' => 'Email',
 			'currentExp' => 'Current Exp',
@@ -126,9 +127,9 @@ class Userinfo extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
+		$criteria->compare('rfid',$this->rfid,true);
 		$criteria->compare('log_id',$this->log_id);
 		$criteria->compare('lvl_id',$this->lvl_id);
-		$criteria->compare('rfidTag',$this->rfidTag,true);
 		$criteria->compare('gender',$this->gender,true);
 		$criteria->compare('email',$this->email,true);
 		$criteria->compare('currentExp',$this->currentExp);
@@ -155,6 +156,15 @@ class Userinfo extends CActiveRecord
 		$this->save();
 
 	}
+
+	// protected function afterSave()
+	// {
+	//     parent::afterSave();
+
+	//     Taglist::model()->registerTag($this->rfid);
+
+	// }
+
 
 	/**
 	 * Returns the static model of the specified AR class.
