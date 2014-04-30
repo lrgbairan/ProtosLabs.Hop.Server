@@ -30,7 +30,7 @@ return array(
 		
 	),
 
-	'defaultController'=>'site',
+	'defaultController'=>'hop',
 
 	// application components
 	'components'=>array(
