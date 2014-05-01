@@ -6,6 +6,7 @@
  * The followings are the available columns in table '{{taglist}}':
  * @property integer $id
  * @property string $rfidTag
+ * @property string $unique_id
  * @property integer $isRegistered
  */
 class Taglist extends CActiveRecord
@@ -26,11 +27,13 @@ class Taglist extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+			array('isRegistered', 'required'),
 			array('isRegistered', 'numerical', 'integerOnly'=>true),
 			array('rfidTag', 'length', 'max'=>128),
+			array('unique_id', 'length', 'max'=>4),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, rfidTag, isRegistered', 'safe', 'on'=>'search'),
+			array('id, rfidTag, unique_id, isRegistered', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -53,6 +56,7 @@ class Taglist extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'rfidTag' => 'Rfid Tag',
+			'unique_id' => 'Unique',
 			'isRegistered' => 'Is Registered',
 		);
 	}
@@ -77,18 +81,13 @@ class Taglist extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('rfidTag',$this->rfidTag,true);
+		$criteria->compare('unique_id',$this->unique_id,true);
 		$criteria->compare('isRegistered',$this->isRegistered);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}
-
-	// public function registerTag($rfid){
-	// 	$model = $this->find('rfidTag=?',array($rfid));
-	// 	$model->isRegistered = 1;
-	// 	$model->save();
-	// } 
 
 	/**
 	 * Returns the static model of the specified AR class.

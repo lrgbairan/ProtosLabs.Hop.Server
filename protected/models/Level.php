@@ -6,10 +6,10 @@
  * The followings are the available columns in table '{{level}}':
  * @property integer $id
  * @property string $aliasName
+ * @property string $mingleName
+ * @property string $alcoholName
  * @property integer $expNeeded
- *
- * The followings are the available model relations:
- * @property Userinfo[] $userinfos
+ * @property integer $maxStamina
  */
 class Level extends CActiveRecord
 {
@@ -29,12 +29,12 @@ class Level extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('aliasName, expNeeded', 'required'),
-			array('expNeeded', 'numerical', 'integerOnly'=>true),
-			array('aliasName', 'length', 'max'=>128),
+			array('aliasName, mingleName, alcoholName, expNeeded, maxStamina', 'required'),
+			array('expNeeded, maxStamina', 'numerical', 'integerOnly'=>true),
+			array('aliasName, mingleName, alcoholName', 'length', 'max'=>128),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, aliasName, expNeeded', 'safe', 'on'=>'search'),
+			array('id, aliasName, mingleName, alcoholName, expNeeded, maxStamina', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -46,7 +46,6 @@ class Level extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'user' => array(self::BELONGS_TO, 'Userinfo', 'id'),
 		);
 	}
 
@@ -58,7 +57,10 @@ class Level extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'aliasName' => 'Alias Name',
+			'mingleName' => 'Mingle Name',
+			'alcoholName' => 'Alcohol Name',
 			'expNeeded' => 'Exp Needed',
+			'maxStamina' => 'Max Stamina',
 		);
 	}
 
@@ -82,7 +84,10 @@ class Level extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('aliasName',$this->aliasName,true);
+		$criteria->compare('mingleName',$this->mingleName,true);
+		$criteria->compare('alcoholName',$this->alcoholName,true);
 		$criteria->compare('expNeeded',$this->expNeeded);
+		$criteria->compare('maxStamina',$this->maxStamina);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

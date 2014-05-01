@@ -12,6 +12,7 @@
  * @property string $email
  * @property integer $currentExp
  * @property integer $status_id
+ * @property string $status
  * @property integer $stamina
  * @property string $nextRefresh
  * @property string $image
@@ -42,10 +43,10 @@ class Userinfo extends CActiveRecord
 			array('rfid, gender, email', 'required'),
 			array('log_id, lvl_id, currentExp, status_id, stamina, deleted', 'numerical', 'integerOnly'=>true),
 			array('rfid', 'length', 'max'=>20),
-			array('email, image', 'length', 'max'=>128),
+			array('email, status, image', 'length', 'max'=>128),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, rfid, log_id, lvl_id, gender, email, currentExp, status_id, stamina, nextRefresh, image, lastUpdate, deleted', 'safe', 'on'=>'search'),
+			array('id, rfid, log_id, lvl_id, gender, email, currentExp, status_id, status, stamina, nextRefresh, image, lastUpdate, deleted', 'safe', 'on'=>'search'),
 
 			array('lastUpdate','default',
               	  'value'=>new CDbExpression('NOW()'),
@@ -100,6 +101,7 @@ class Userinfo extends CActiveRecord
 			'email' => 'Email',
 			'currentExp' => 'Current Exp',
 			'status_id' => 'Status',
+			'status' => 'Status',
 			'stamina' => 'Stamina',
 			'nextRefresh' => 'Next Refresh',
 			'image' => 'Image',
@@ -134,6 +136,7 @@ class Userinfo extends CActiveRecord
 		$criteria->compare('email',$this->email,true);
 		$criteria->compare('currentExp',$this->currentExp);
 		$criteria->compare('status_id',$this->status_id);
+		$criteria->compare('status',$this->status,true);
 		$criteria->compare('stamina',$this->stamina);
 		$criteria->compare('nextRefresh',$this->nextRefresh,true);
 		$criteria->compare('image',$this->image,true);
@@ -145,6 +148,7 @@ class Userinfo extends CActiveRecord
 		));
 	}
 
+	
 	public function updateStatus($statusId){
 
 		$date = new DateTime();
@@ -156,15 +160,6 @@ class Userinfo extends CActiveRecord
 		$this->save();
 
 	}
-
-	// protected function afterSave()
-	// {
-	//     parent::afterSave();
-
-	//     Taglist::model()->registerTag($this->rfid);
-
-	// }
-
 
 	/**
 	 * Returns the static model of the specified AR class.
