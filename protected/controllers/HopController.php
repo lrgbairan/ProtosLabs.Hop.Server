@@ -111,35 +111,63 @@ class HopController extends Controller
 	public function actionPurchase(){
 
 		if(isset($_GET['id']) && isset($_GET['exp'])){
+			$id = $_GET['id'];
+			$exp = $_GET['exp'];
+			print($exp);
+			$userInfo = Userinfo::model()->findByPk($id);
+		
+			if(!empty($userInfo)){
+				$lvlModel = Level::model()->findByPk($userInfo->lvl_id);
+				if(!empty($lvlModel)){
 
-			$userInfo = $this->loadUserInfoModel(array($_GET['id']), 'id');	
-			if($userInfo === null){
-				print(json_encode(array("flag"=>"false")));
-			}
-			else{
-				
-				$lvlModel = $this->loadLvlModel(array($userInfo['lvl_id']));
-				if($lvlModel === null){
-					
-				}	
-				else{
 					if(($userInfo->stamina + 20) > $lvlModel->maxStamina)
 						$userInfo->stamina = (int)$lvlModel->maxStamina;
 					else
 						$userInfo->stamina += 20;
 
-					$currentExp = $userInfo['currentExp'] + $_GET['exp'];
-					if($currentExp > $lvlModel['expNeeded']){
-						$userInfo['lvl_id'] = $userInfo['lvl_id'] + 1;
-						$userInfo['currentExp'] = $userInfo['currentExp'] - $lvlModel['expNeeded'];
-					}
-					$userInfo->save();
-					print(json_encode(array("flag"=>"true")));
+					if($this->updateUserAlcoholExp($userInfo,$exp) && 	$this->updateUserLevel($userInfo,$lvlModel,$exp))
+						print(json_encode(array("flag"=>"true")));
+					else
+						print(json_encode(array("flag"=>"false")));
 				}
+				else
+					print(json_encode(array("flag"=>"false")));
 			}
-			print(json_encode(array("flag"=>"false")));
+			else
+				print(json_encode(array("flag"=>"false")));
 		}
+		else
+			print(json_encode(array("flag"=>"false")));
 	}
+
+	public function updateUserAlcoholExp($model,$exp){
+		$userExpModel = Userexp::model()->findByPk($model->id);
+		$userExpModel->expAlcohol += $exp;
+		$userExpModel->expTotal += $exp;
+		if($userExpModel->save())
+			return true;
+		else 
+			return false;
+	}
+
+	public function updateUserLevel($userModel,$lvlModel,$exp){
+	
+		$currentExp = $userModel->currentExp + $exp;
+		if($currentExp - $lvlModel->expNeeded >= 0){
+			$currentExp -= $lvlModel->expNeeded;
+			$userModel->lvl_id = $userModel->lvl_id + 1;
+			$userModel->currentExp = $currentExp;
+		}
+		else
+			$userModel->currentExp = $currentExp;
+
+		if($userModel->save())
+			return true;
+		else
+			return false;
+	}
+
+
 
 	//LOGIN PAGE
 	
@@ -341,13 +369,24 @@ class HopController extends Controller
 			else{
 				$userLogModel = Userlog::model()->findByPk($userInfo->log_id);
 				$lvlModel = Level::model()->findByPk($userInfo->lvl_id);
+				$title = $this->getTitle($userInfo,$lvlModel);
+				
 				$rows[] = array('RFID'=>$userInfo->rfid, 'username'=>$userLogModel->username, 'password'=>$userLogModel->password, 
-								'level'=>$userInfo->lvl_id,'title'=>$lvlModel->aliasName,'currentExp'=>$userInfo->currentExp, 'nextLevel'=>$lvlModel->expNeeded,
+								'level'=>$userInfo->lvl_id,'title'=>$title,'currentExp'=>$userInfo->currentExp, 'nextLevel'=>$lvlModel->expNeeded,
 								'status_id'=>$userInfo->status_id,'status'=>$userInfo->status, 'stamina'=>$userInfo->stamina,'gender'=>$userInfo->gender, 'email'=>$userInfo->email, 
 								'image'=>$userInfo->image);
 				print(json_encode(array('error'=>'0','data'=>$rows)));
 			}			
 		}
+	}
+
+	public function getTitle($userInfo,$lvlModel){
+
+		$userExpModel = Userexp::model()->findByPk($userInfo->id);
+		if($userExpModel->expMingle > $userExpModel->expAlcohol)
+			return $lvlModel->aliasName.' '.$lvlModel->mingleName;
+		else
+			return $lvlModel->aliasName.' '.$lvlModel->alcoholName;
 	}
 
 	public function actionSaveStatus(){
@@ -456,19 +495,22 @@ class HopController extends Controller
 	}
 
 	public function actionCheckMingleAccept(){
-
+		$exp = 20;
 		if(isset($_GET['user_id'])){
+			$id = $_GET['user_id'];
 			$criteria = new CDbCriteria();
-			$criteria->addInCondition('user_id',array($_GET['user_id']));
+			$criteria->addInCondition('user_id',array($id));
 			$models = Mingle::model()->findAll($criteria);
+			$userInfo = Userinfo::model()->findByPk($id);
+			$lvlModel = Level::model()->findByPk($userInfo->lvl_id);
 			$flag = false;
 			if(!empty($models)){
 				foreach($models as $model){
-					if($model->user_token == 1){
+					if($model->receiver_token == 1){
 						$flag = true;
-						$model->receiver_token = 1;
-						$rows[] = array('user_id'=>$model->user_id,'receiver_id'=>$model->receiver_id);
-						$model->save();
+						$model->user_token = 1;
+						if($model->save() && $this->updateUserMingleExp($userInfo,$exp) && $this->updateUserLevel($userInfo,$lvlModel,$exp))
+							$rows[] = array('user_id'=>$model->user_id,'receiver_id'=>$model->receiver_id);
 					}
 				}
 				if($flag)
@@ -479,6 +521,16 @@ class HopController extends Controller
 			else
 				print(json_encode(array('flag'=>'false')));
 		}
+	}
+
+	public function updateUserMingleExp($model,$exp){
+		$userExpModel = Userexp::model()->findByPk($model->id);
+		$userExpModel->expMingle += $exp;
+		$userExpModel->expTotal += $exp;
+		if($userExpModel->save())
+			return true;
+		else
+			return false;
 	}
 
 	public function actionDeleteMingle(){
@@ -498,7 +550,8 @@ class HopController extends Controller
 		if(isset($_GET['id'])){
 			$model = Mingle::model()->findByPk($_GET['id']);
 			if($model !== null){
-				$model->user_token = 1;
+				$userInfo = Userinfo::model()->findByPk($model->receiver_id);
+				$model->receiver_token = 1;
 				if($model->save())
 					print(json_encode(array('flag'=>'true')));
 				else
@@ -507,7 +560,6 @@ class HopController extends Controller
 			else
 				print(json_encode(array('flag'=>'false')));
 		}
-
 	}
 
 	public function actionRandomArea(){
