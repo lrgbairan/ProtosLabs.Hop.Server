@@ -1,24 +1,20 @@
 <?php
 
 /**
- * This is the model class for table "{{userexp}}".
+ * This is the model class for table "{{class}}".
  *
- * The followings are the available columns in table '{{userexp}}':
+ * The followings are the available columns in table '{{class}}':
  * @property integer $id
- * @property integer $expMingle
- * @property integer $expAlcohol
- * @property integer $expTotal
- * @property string $lastUpdate
- * @property integer $deleted
+ * @property string $name
  */
-class Userexp extends CActiveRecord
+class Classtype extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return '{{userexp}}';
+		return '{{class}}';
 	}
 
 	/**
@@ -29,32 +25,12 @@ class Userexp extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('expMingle, expAlcohol, expTotal, deleted', 'numerical', 'integerOnly'=>true),
+			array('name', 'required'),
+			array('name', 'length', 'max'=>128),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, expMingle, expAlcohol, expTotal, lastUpdate, deleted', 'safe', 'on'=>'search'),
-
-			array('lastUpdate','default',
-              	  'value'=>new CDbExpression('NOW()'),
-              	  'setOnEmpty'=>false,'on'=>'update'),
-			array('lastUpdate','default',
-	              	  'value'=>new CDbExpression('NOW()'),
-	              	  'setOnEmpty'=>false,'on'=>'insert'),
-			array('deleted','default',
-	              	  'value'=>0,
-	              	  'setOnEmpty'=>false,'on'=>'insert'),
-			array('expMingle','default',
-              	  'value'=>0,
-              	  'setOnEmpty'=>false,'on'=>'insert'),
-			array('expAlcohol','default',
-              	  'value'=>0,
-              	  'setOnEmpty'=>false,'on'=>'insert'),
-			array('expTotal','default',
-              	  'value'=>0,
-              	  'setOnEmpty'=>false,'on'=>'insert'),
+			array('id, name', 'safe', 'on'=>'search'),
 		);
-
-		
 	}
 
 	/**
@@ -75,11 +51,7 @@ class Userexp extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'expMingle' => 'Exp Mingle',
-			'expAlcohol' => 'Exp Alcohol',
-			'expTotal' => 'Exp Total',
-			'lastUpdate' => 'Last Update',
-			'deleted' => 'Deleted',
+			'name' => 'Name',
 		);
 	}
 
@@ -102,11 +74,7 @@ class Userexp extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('expMingle',$this->expMingle);
-		$criteria->compare('expAlcohol',$this->expAlcohol);
-		$criteria->compare('expTotal',$this->expTotal);
-		$criteria->compare('lastUpdate',$this->lastUpdate,true);
-		$criteria->compare('deleted',$this->deleted);
+		$criteria->compare('name',$this->name,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -117,7 +85,7 @@ class Userexp extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Userexp the static model class
+	 * @return Classtype the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

@@ -7,6 +7,7 @@
  * @property integer $id
  * @property string $rfid
  * @property integer $log_id
+ * @property integer $class_id
  * @property integer $lvl_id
  * @property string $gender
  * @property string $email
@@ -41,12 +42,13 @@ class Userinfo extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('rfid, gender, email', 'required'),
-			array('log_id, lvl_id, currentExp, status_id, stamina, deleted', 'numerical', 'integerOnly'=>true),
+			array('log_id, class_id, lvl_id, currentExp, status_id, stamina, deleted', 'numerical', 'integerOnly'=>true),
 			array('rfid', 'length', 'max'=>20),
 			array('email, status, image', 'length', 'max'=>128),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, rfid, log_id, lvl_id, gender, email, currentExp, status_id, status, stamina, nextRefresh, image, lastUpdate, deleted', 'safe', 'on'=>'search'),
+			array('id, rfid, log_id, class_id, lvl_id, gender, email, currentExp, status_id, status, stamina, nextRefresh, image, lastUpdate, deleted', 'safe', 'on'=>'search'),
+		
 
 			array('lastUpdate','default',
               	  'value'=>new CDbExpression('NOW()'),
@@ -59,6 +61,9 @@ class Userinfo extends CActiveRecord
               	  'setOnEmpty'=>false,'on'=>'insert'),
 			array('lvl_id','default',
               	  'value'=>1,
+              	  'setOnEmpty'=>false,'on'=>'insert'),
+			array('class_id','default',
+              	  'value'=>3,
               	  'setOnEmpty'=>false,'on'=>'insert'),
 			array('currentExp','default',
               	  'value'=>0,
@@ -73,6 +78,7 @@ class Userinfo extends CActiveRecord
               	  'value'=> DateTime::createFromFormat('Y-m-d', date('Y-m-d'))->modify('+1 day')->format('Y-m-d'),
               	  'setOnEmpty'=>false,'on'=>'insert'),
 		);
+
 	}
 
 	/**
@@ -96,6 +102,7 @@ class Userinfo extends CActiveRecord
 			'id' => 'ID',
 			'rfid' => 'Rfid',
 			'log_id' => 'Log',
+			'class_id' => 'Class',
 			'lvl_id' => 'Lvl',
 			'gender' => 'Gender',
 			'email' => 'Email',
@@ -131,6 +138,7 @@ class Userinfo extends CActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('rfid',$this->rfid,true);
 		$criteria->compare('log_id',$this->log_id);
+		$criteria->compare('class_id',$this->class_id);
 		$criteria->compare('lvl_id',$this->lvl_id);
 		$criteria->compare('gender',$this->gender,true);
 		$criteria->compare('email',$this->email,true);
@@ -148,7 +156,6 @@ class Userinfo extends CActiveRecord
 		));
 	}
 
-	
 	public function updateStatus($statusId){
 
 		$date = new DateTime();

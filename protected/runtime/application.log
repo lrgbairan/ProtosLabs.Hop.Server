@@ -23720,3 +23720,567 @@ REQUEST_URI=/ProtosLabs/HopData/index.php/Hop/purchase?id=1&exp=50
 in C:\wamp\www\ProtosLabs\HopData\protected\controllers\HopController.php (154)
 in C:\wamp\www\ProtosLabs\HopData\protected\controllers\HopController.php (127)
 in C:\wamp\www\ProtosLabs\HopData\index.php (13)
+2014/05/03 07:17:02 [error] [exception.CException] exception 'CException' with message 'Property "Userinfo.status" is not defined.' in C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\wamp\www\ProtosLabs\HopData\Yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('status')
+#1 C:\wamp\www\ProtosLabs\HopData\Yii\framework\validators\CStringValidator.php(79): CActiveRecord->__get('status')
+#2 C:\wamp\www\ProtosLabs\HopData\Yii\framework\validators\CValidator.php(213): CStringValidator->validateAttribute(Object(Userinfo), 'status')
+#3 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CModel.php(159): CValidator->validate(Object(Userinfo), NULL)
+#4 C:\wamp\www\ProtosLabs\HopData\Yii\framework\db\ar\CActiveRecord.php(805): CModel->validate(NULL)
+#5 C:\wamp\www\ProtosLabs\HopData\protected\controllers\HopController.php(270): CActiveRecord->save()
+#6 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\actions\CInlineAction.php(49): HopController->actionRefreshStamina()
+#7 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#8 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#9 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#10 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(282): CController->run('refreshstamina')
+#11 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(141): CWebApplication->runController('hop/refreshstam...')
+#12 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#13 C:\wamp\www\ProtosLabs\HopData\index.php(13): CApplication->run()
+#14 {main}
+REQUEST_URI=/ProtosLabs/HopData/index.php/hop/refreshstamina?id=1
+HTTP_REFERER=http://localhost/ProtosLabs/ProtosLabs.Hop/www/
+---
+2014/05/03 07:17:03 [error] [exception.CException] exception 'CException' with message 'Property "Userinfo.status" is not defined.' in C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\wamp\www\ProtosLabs\HopData\Yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('status')
+#1 C:\wamp\www\ProtosLabs\HopData\Yii\framework\validators\CStringValidator.php(79): CActiveRecord->__get('status')
+#2 C:\wamp\www\ProtosLabs\HopData\Yii\framework\validators\CValidator.php(213): CStringValidator->validateAttribute(Object(Userinfo), 'status')
+#3 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CModel.php(159): CValidator->validate(Object(Userinfo), NULL)
+#4 C:\wamp\www\ProtosLabs\HopData\Yii\framework\db\ar\CActiveRecord.php(805): CModel->validate(NULL)
+#5 C:\wamp\www\ProtosLabs\HopData\protected\controllers\HopController.php(270): CActiveRecord->save()
+#6 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\actions\CInlineAction.php(49): HopController->actionRefreshStamina()
+#7 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#8 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#9 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#10 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(282): CController->run('refreshstamina')
+#11 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(141): CWebApplication->runController('hop/refreshstam...')
+#12 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#13 C:\wamp\www\ProtosLabs\HopData\index.php(13): CApplication->run()
+#14 {main}
+REQUEST_URI=/ProtosLabs/HopData/index.php/hop/refreshstamina?id=1
+HTTP_REFERER=http://localhost/ProtosLabs/ProtosLabs.Hop/www/
+---
+2014/05/03 07:20:40 [error] [exception.CException] exception 'CException' with message 'Property "Userinfo.status" is not defined.' in C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\wamp\www\ProtosLabs\HopData\Yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('status')
+#1 C:\wamp\www\ProtosLabs\HopData\Yii\framework\validators\CStringValidator.php(79): CActiveRecord->__get('status')
+#2 C:\wamp\www\ProtosLabs\HopData\Yii\framework\validators\CValidator.php(213): CStringValidator->validateAttribute(Object(Userinfo), 'status')
+#3 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CModel.php(159): CValidator->validate(Object(Userinfo), NULL)
+#4 C:\wamp\www\ProtosLabs\HopData\Yii\framework\db\ar\CActiveRecord.php(805): CModel->validate(NULL)
+#5 C:\wamp\www\ProtosLabs\HopData\protected\controllers\HopController.php(270): CActiveRecord->save()
+#6 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\actions\CInlineAction.php(49): HopController->actionRefreshStamina()
+#7 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#8 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#9 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#10 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(282): CController->run('refreshstamina')
+#11 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(141): CWebApplication->runController('hop/refreshstam...')
+#12 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#13 C:\wamp\www\ProtosLabs\HopData\index.php(13): CApplication->run()
+#14 {main}
+REQUEST_URI=/ProtosLabs/HopData/index.php/hop/refreshstamina?id=1
+HTTP_REFERER=http://localhost/ProtosLabs/ProtosLabs.Hop/www/
+---
+2014/05/03 07:35:20 [error] [exception.CException] exception 'CException' with message 'Property "Userinfo.status" is not defined.' in C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\wamp\www\ProtosLabs\HopData\Yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('status')
+#1 C:\wamp\www\ProtosLabs\HopData\Yii\framework\validators\CStringValidator.php(79): CActiveRecord->__get('status')
+#2 C:\wamp\www\ProtosLabs\HopData\Yii\framework\validators\CValidator.php(213): CStringValidator->validateAttribute(Object(Userinfo), 'status')
+#3 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CModel.php(159): CValidator->validate(Object(Userinfo), NULL)
+#4 C:\wamp\www\ProtosLabs\HopData\Yii\framework\db\ar\CActiveRecord.php(805): CModel->validate(NULL)
+#5 C:\wamp\www\ProtosLabs\HopData\protected\controllers\HopController.php(270): CActiveRecord->save()
+#6 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\actions\CInlineAction.php(49): HopController->actionRefreshStamina()
+#7 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#8 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#9 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#10 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(282): CController->run('refreshstamina')
+#11 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(141): CWebApplication->runController('hop/refreshstam...')
+#12 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#13 C:\wamp\www\ProtosLabs\HopData\index.php(13): CApplication->run()
+#14 {main}
+REQUEST_URI=/ProtosLabs/HopData/index.php/hop/refreshstamina?id=1
+HTTP_REFERER=http://localhost/ProtosLabs/ProtosLabs.Hop/www/
+---
+2014/05/03 07:37:12 [error] [php] Trying to get property of non-object (C:\wamp\www\ProtosLabs\HopData\protected\controllers\HopController.php:265)
+Stack trace:
+#0 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(286): HopController->runAction()
+#1 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(265): HopController->runActionWithFilters()
+#2 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(282): HopController->run()
+#3 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#4 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#5 C:\wamp\www\ProtosLabs\HopData\index.php(13): CWebApplication->run()
+REQUEST_URI=/ProtosLabs/HopData/index.php/hop/refreshstamina?id=undefined
+in C:\wamp\www\ProtosLabs\HopData\protected\controllers\HopController.php (265)
+in C:\wamp\www\ProtosLabs\HopData\index.php (13)
+2014/05/03 07:37:22 [error] [php] Trying to get property of non-object (C:\wamp\www\ProtosLabs\HopData\protected\controllers\HopController.php:506)
+Stack trace:
+#0 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(286): HopController->runAction()
+#1 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(265): HopController->runActionWithFilters()
+#2 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(282): HopController->run()
+#3 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#4 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#5 C:\wamp\www\ProtosLabs\HopData\index.php(13): CWebApplication->run()
+REQUEST_URI=/ProtosLabs/HopData/index.php/hop/checkmingleaccept?user_id=undefined
+in C:\wamp\www\ProtosLabs\HopData\protected\controllers\HopController.php (506)
+in C:\wamp\www\ProtosLabs\HopData\index.php (13)
+2014/05/03 07:37:32 [error] [php] Trying to get property of non-object (C:\wamp\www\ProtosLabs\HopData\protected\controllers\HopController.php:265)
+Stack trace:
+#0 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(286): HopController->runAction()
+#1 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(265): HopController->runActionWithFilters()
+#2 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(282): HopController->run()
+#3 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#4 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#5 C:\wamp\www\ProtosLabs\HopData\index.php(13): CWebApplication->run()
+REQUEST_URI=/ProtosLabs/HopData/index.php/hop/refreshstamina?id=undefined
+in C:\wamp\www\ProtosLabs\HopData\protected\controllers\HopController.php (265)
+in C:\wamp\www\ProtosLabs\HopData\index.php (13)
+2014/05/03 07:37:42 [error] [php] Trying to get property of non-object (C:\wamp\www\ProtosLabs\HopData\protected\controllers\HopController.php:506)
+Stack trace:
+#0 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(286): HopController->runAction()
+#1 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(265): HopController->runActionWithFilters()
+#2 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(282): HopController->run()
+#3 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#4 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#5 C:\wamp\www\ProtosLabs\HopData\index.php(13): CWebApplication->run()
+REQUEST_URI=/ProtosLabs/HopData/index.php/hop/checkmingleaccept?user_id=undefined
+in C:\wamp\www\ProtosLabs\HopData\protected\controllers\HopController.php (506)
+in C:\wamp\www\ProtosLabs\HopData\index.php (13)
+2014/05/03 07:38:13 [error] [exception.CException] exception 'CException' with message 'Property "Userinfo.status" is not defined.' in C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\wamp\www\ProtosLabs\HopData\Yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('status')
+#1 C:\wamp\www\ProtosLabs\HopData\Yii\framework\validators\CStringValidator.php(79): CActiveRecord->__get('status')
+#2 C:\wamp\www\ProtosLabs\HopData\Yii\framework\validators\CValidator.php(213): CStringValidator->validateAttribute(Object(Userinfo), 'status')
+#3 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CModel.php(159): CValidator->validate(Object(Userinfo), NULL)
+#4 C:\wamp\www\ProtosLabs\HopData\Yii\framework\db\ar\CActiveRecord.php(805): CModel->validate(NULL)
+#5 C:\wamp\www\ProtosLabs\HopData\protected\controllers\HopController.php(270): CActiveRecord->save()
+#6 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\actions\CInlineAction.php(49): HopController->actionRefreshStamina()
+#7 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#8 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#9 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#10 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(282): CController->run('refreshstamina')
+#11 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(141): CWebApplication->runController('hop/refreshstam...')
+#12 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#13 C:\wamp\www\ProtosLabs\HopData\index.php(13): CApplication->run()
+#14 {main}
+REQUEST_URI=/ProtosLabs/HopData/index.php/hop/refreshstamina?id=1
+HTTP_REFERER=http://localhost/ProtosLabs/ProtosLabs.Hop/www/
+---
+2014/05/03 08:01:41 [error] [exception.CException] exception 'CException' with message 'Property "Userinfo.status" is not defined.' in C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\wamp\www\ProtosLabs\HopData\Yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('status')
+#1 C:\wamp\www\ProtosLabs\HopData\Yii\framework\validators\CStringValidator.php(79): CActiveRecord->__get('status')
+#2 C:\wamp\www\ProtosLabs\HopData\Yii\framework\validators\CValidator.php(213): CStringValidator->validateAttribute(Object(Userinfo), 'status')
+#3 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CModel.php(159): CValidator->validate(Object(Userinfo), NULL)
+#4 C:\wamp\www\ProtosLabs\HopData\Yii\framework\db\ar\CActiveRecord.php(805): CModel->validate(NULL)
+#5 C:\wamp\www\ProtosLabs\HopData\protected\controllers\HopController.php(270): CActiveRecord->save()
+#6 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\actions\CInlineAction.php(49): HopController->actionRefreshStamina()
+#7 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#8 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#9 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#10 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(282): CController->run('refreshstamina')
+#11 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(141): CWebApplication->runController('hop/refreshstam...')
+#12 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#13 C:\wamp\www\ProtosLabs\HopData\index.php(13): CApplication->run()
+#14 {main}
+REQUEST_URI=/ProtosLabs/HopData/index.php/hop/refreshstamina?id=1
+HTTP_REFERER=http://localhost/ProtosLabs/ProtosLabs.Hop/www/
+---
+2014/05/03 08:09:28 [error] [exception.CException] exception 'CException' with message 'Property "Userinfo.status" is not defined.' in C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\wamp\www\ProtosLabs\HopData\Yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('status')
+#1 C:\wamp\www\ProtosLabs\HopData\Yii\framework\validators\CStringValidator.php(79): CActiveRecord->__get('status')
+#2 C:\wamp\www\ProtosLabs\HopData\Yii\framework\validators\CValidator.php(213): CStringValidator->validateAttribute(Object(Userinfo), 'status')
+#3 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CModel.php(159): CValidator->validate(Object(Userinfo), NULL)
+#4 C:\wamp\www\ProtosLabs\HopData\Yii\framework\db\ar\CActiveRecord.php(805): CModel->validate(NULL)
+#5 C:\wamp\www\ProtosLabs\HopData\protected\controllers\HopController.php(270): CActiveRecord->save()
+#6 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\actions\CInlineAction.php(49): HopController->actionRefreshStamina()
+#7 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#8 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#9 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#10 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(282): CController->run('refreshstamina')
+#11 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(141): CWebApplication->runController('hop/refreshstam...')
+#12 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#13 C:\wamp\www\ProtosLabs\HopData\index.php(13): CApplication->run()
+#14 {main}
+REQUEST_URI=/ProtosLabs/HopData/index.php/hop/refreshstamina?id=1
+HTTP_REFERER=http://localhost/ProtosLabs/ProtosLabs.Hop/www/
+---
+2014/05/03 08:09:34 [error] [exception.CException] exception 'CException' with message 'Property "Userinfo.status" is not defined.' in C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\wamp\www\ProtosLabs\HopData\Yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('status')
+#1 C:\wamp\www\ProtosLabs\HopData\Yii\framework\validators\CStringValidator.php(79): CActiveRecord->__get('status')
+#2 C:\wamp\www\ProtosLabs\HopData\Yii\framework\validators\CValidator.php(213): CStringValidator->validateAttribute(Object(Userinfo), 'status')
+#3 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CModel.php(159): CValidator->validate(Object(Userinfo), NULL)
+#4 C:\wamp\www\ProtosLabs\HopData\Yii\framework\db\ar\CActiveRecord.php(805): CModel->validate(NULL)
+#5 C:\wamp\www\ProtosLabs\HopData\protected\controllers\HopController.php(270): CActiveRecord->save()
+#6 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\actions\CInlineAction.php(49): HopController->actionRefreshStamina()
+#7 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#8 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#9 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#10 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(282): CController->run('refreshstamina')
+#11 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(141): CWebApplication->runController('hop/refreshstam...')
+#12 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#13 C:\wamp\www\ProtosLabs\HopData\index.php(13): CApplication->run()
+#14 {main}
+REQUEST_URI=/ProtosLabs/HopData/index.php/hop/refreshstamina?id=1
+HTTP_REFERER=http://localhost/ProtosLabs/ProtosLabs.Hop/www/
+---
+2014/05/03 08:09:54 [error] [exception.CException] exception 'CException' with message 'Property "Userinfo.status" is not defined.' in C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\wamp\www\ProtosLabs\HopData\Yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('status')
+#1 C:\wamp\www\ProtosLabs\HopData\Yii\framework\validators\CStringValidator.php(79): CActiveRecord->__get('status')
+#2 C:\wamp\www\ProtosLabs\HopData\Yii\framework\validators\CValidator.php(213): CStringValidator->validateAttribute(Object(Userinfo), 'status')
+#3 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CModel.php(159): CValidator->validate(Object(Userinfo), NULL)
+#4 C:\wamp\www\ProtosLabs\HopData\Yii\framework\db\ar\CActiveRecord.php(805): CModel->validate(NULL)
+#5 C:\wamp\www\ProtosLabs\HopData\protected\controllers\HopController.php(270): CActiveRecord->save()
+#6 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\actions\CInlineAction.php(49): HopController->actionRefreshStamina()
+#7 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#8 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#9 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#10 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(282): CController->run('refreshstamina')
+#11 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(141): CWebApplication->runController('hop/refreshstam...')
+#12 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#13 C:\wamp\www\ProtosLabs\HopData\index.php(13): CApplication->run()
+#14 {main}
+REQUEST_URI=/ProtosLabs/HopData/index.php/hop/refreshstamina?id=1
+HTTP_REFERER=http://localhost/ProtosLabs/ProtosLabs.Hop/www/
+---
+2014/05/03 08:22:21 [error] [exception.CException] exception 'CException' with message 'Property "Userinfo.status" is not defined.' in C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\wamp\www\ProtosLabs\HopData\Yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('status')
+#1 C:\wamp\www\ProtosLabs\HopData\Yii\framework\validators\CStringValidator.php(79): CActiveRecord->__get('status')
+#2 C:\wamp\www\ProtosLabs\HopData\Yii\framework\validators\CValidator.php(213): CStringValidator->validateAttribute(Object(Userinfo), 'status')
+#3 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CModel.php(159): CValidator->validate(Object(Userinfo), NULL)
+#4 C:\wamp\www\ProtosLabs\HopData\Yii\framework\db\ar\CActiveRecord.php(805): CModel->validate(NULL)
+#5 C:\wamp\www\ProtosLabs\HopData\protected\controllers\HopController.php(270): CActiveRecord->save()
+#6 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\actions\CInlineAction.php(49): HopController->actionRefreshStamina()
+#7 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#8 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#9 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#10 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(282): CController->run('refreshstamina')
+#11 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(141): CWebApplication->runController('hop/refreshstam...')
+#12 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#13 C:\wamp\www\ProtosLabs\HopData\index.php(13): CApplication->run()
+#14 {main}
+REQUEST_URI=/ProtosLabs/HopData/index.php/hop/refreshstamina?id=1
+HTTP_REFERER=http://localhost/ProtosLabs/ProtosLabs.Hop/www/
+---
+2014/05/03 08:26:14 [error] [exception.CException] exception 'CException' with message 'Property "Userinfo.status" is not defined.' in C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\wamp\www\ProtosLabs\HopData\Yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('status')
+#1 C:\wamp\www\ProtosLabs\HopData\Yii\framework\validators\CStringValidator.php(79): CActiveRecord->__get('status')
+#2 C:\wamp\www\ProtosLabs\HopData\Yii\framework\validators\CValidator.php(213): CStringValidator->validateAttribute(Object(Userinfo), 'status')
+#3 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CModel.php(159): CValidator->validate(Object(Userinfo), NULL)
+#4 C:\wamp\www\ProtosLabs\HopData\Yii\framework\db\ar\CActiveRecord.php(805): CModel->validate(NULL)
+#5 C:\wamp\www\ProtosLabs\HopData\protected\controllers\HopController.php(270): CActiveRecord->save()
+#6 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\actions\CInlineAction.php(49): HopController->actionRefreshStamina()
+#7 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#8 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#9 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#10 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(282): CController->run('refreshstamina')
+#11 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(141): CWebApplication->runController('hop/refreshstam...')
+#12 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#13 C:\wamp\www\ProtosLabs\HopData\index.php(13): CApplication->run()
+#14 {main}
+REQUEST_URI=/ProtosLabs/HopData/index.php/hop/refreshstamina?id=1
+HTTP_REFERER=http://localhost/ProtosLabs/ProtosLabs.Hop/www/
+---
+2014/05/03 08:37:33 [error] [exception.CException] exception 'CException' with message 'Property "Userinfo.status" is not defined.' in C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\wamp\www\ProtosLabs\HopData\Yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('status')
+#1 C:\wamp\www\ProtosLabs\HopData\Yii\framework\validators\CStringValidator.php(79): CActiveRecord->__get('status')
+#2 C:\wamp\www\ProtosLabs\HopData\Yii\framework\validators\CValidator.php(213): CStringValidator->validateAttribute(Object(Userinfo), 'status')
+#3 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CModel.php(159): CValidator->validate(Object(Userinfo), NULL)
+#4 C:\wamp\www\ProtosLabs\HopData\Yii\framework\db\ar\CActiveRecord.php(805): CModel->validate(NULL)
+#5 C:\wamp\www\ProtosLabs\HopData\protected\controllers\HopController.php(270): CActiveRecord->save()
+#6 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\actions\CInlineAction.php(49): HopController->actionRefreshStamina()
+#7 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#8 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#9 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#10 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(282): CController->run('refreshstamina')
+#11 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(141): CWebApplication->runController('hop/refreshstam...')
+#12 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#13 C:\wamp\www\ProtosLabs\HopData\index.php(13): CApplication->run()
+#14 {main}
+REQUEST_URI=/ProtosLabs/HopData/index.php/hop/refreshstamina?id=1
+HTTP_REFERER=http://localhost/ProtosLabs/ProtosLabs.Hop/www/
+---
+2014/05/03 08:40:49 [error] [exception.CException] exception 'CException' with message 'Property "Userinfo.status" is not defined.' in C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\wamp\www\ProtosLabs\HopData\Yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('status')
+#1 C:\wamp\www\ProtosLabs\HopData\Yii\framework\validators\CStringValidator.php(79): CActiveRecord->__get('status')
+#2 C:\wamp\www\ProtosLabs\HopData\Yii\framework\validators\CValidator.php(213): CStringValidator->validateAttribute(Object(Userinfo), 'status')
+#3 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CModel.php(159): CValidator->validate(Object(Userinfo), NULL)
+#4 C:\wamp\www\ProtosLabs\HopData\Yii\framework\db\ar\CActiveRecord.php(805): CModel->validate(NULL)
+#5 C:\wamp\www\ProtosLabs\HopData\protected\controllers\HopController.php(270): CActiveRecord->save()
+#6 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\actions\CInlineAction.php(49): HopController->actionRefreshStamina()
+#7 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#8 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#9 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#10 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(282): CController->run('refreshstamina')
+#11 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(141): CWebApplication->runController('hop/refreshstam...')
+#12 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#13 C:\wamp\www\ProtosLabs\HopData\index.php(13): CApplication->run()
+#14 {main}
+REQUEST_URI=/ProtosLabs/HopData/index.php/hop/refreshstamina?id=1
+HTTP_REFERER=http://localhost/ProtosLabs/ProtosLabs.Hop/www/
+---
+2014/05/03 08:44:45 [error] [exception.CException] exception 'CException' with message 'Property "Userinfo.status" is not defined.' in C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\wamp\www\ProtosLabs\HopData\Yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('status')
+#1 C:\wamp\www\ProtosLabs\HopData\Yii\framework\validators\CStringValidator.php(79): CActiveRecord->__get('status')
+#2 C:\wamp\www\ProtosLabs\HopData\Yii\framework\validators\CValidator.php(213): CStringValidator->validateAttribute(Object(Userinfo), 'status')
+#3 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CModel.php(159): CValidator->validate(Object(Userinfo), NULL)
+#4 C:\wamp\www\ProtosLabs\HopData\Yii\framework\db\ar\CActiveRecord.php(805): CModel->validate(NULL)
+#5 C:\wamp\www\ProtosLabs\HopData\protected\controllers\HopController.php(270): CActiveRecord->save()
+#6 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\actions\CInlineAction.php(49): HopController->actionRefreshStamina()
+#7 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#8 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#9 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#10 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(282): CController->run('refreshstamina')
+#11 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(141): CWebApplication->runController('hop/refreshstam...')
+#12 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#13 C:\wamp\www\ProtosLabs\HopData\index.php(13): CApplication->run()
+#14 {main}
+REQUEST_URI=/ProtosLabs/HopData/index.php/hop/refreshstamina?id=1
+HTTP_REFERER=http://localhost/ProtosLabs/ProtosLabs.Hop/www/
+---
+2014/05/03 08:52:27 [error] [exception.CException] exception 'CException' with message 'Property "Userinfo.status" is not defined.' in C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\wamp\www\ProtosLabs\HopData\Yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('status')
+#1 C:\wamp\www\ProtosLabs\HopData\Yii\framework\validators\CStringValidator.php(79): CActiveRecord->__get('status')
+#2 C:\wamp\www\ProtosLabs\HopData\Yii\framework\validators\CValidator.php(213): CStringValidator->validateAttribute(Object(Userinfo), 'status')
+#3 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CModel.php(159): CValidator->validate(Object(Userinfo), NULL)
+#4 C:\wamp\www\ProtosLabs\HopData\Yii\framework\db\ar\CActiveRecord.php(805): CModel->validate(NULL)
+#5 C:\wamp\www\ProtosLabs\HopData\protected\controllers\HopController.php(270): CActiveRecord->save()
+#6 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\actions\CInlineAction.php(49): HopController->actionRefreshStamina()
+#7 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#8 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#9 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#10 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(282): CController->run('refreshstamina')
+#11 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(141): CWebApplication->runController('hop/refreshstam...')
+#12 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#13 C:\wamp\www\ProtosLabs\HopData\index.php(13): CApplication->run()
+#14 {main}
+REQUEST_URI=/ProtosLabs/HopData/index.php/hop/refreshstamina?id=1
+HTTP_REFERER=http://localhost/ProtosLabs/ProtosLabs.Hop/www/
+---
+2014/05/03 08:53:04 [error] [exception.CException] exception 'CException' with message 'Property "Userinfo.status" is not defined.' in C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\wamp\www\ProtosLabs\HopData\Yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('status')
+#1 C:\wamp\www\ProtosLabs\HopData\Yii\framework\validators\CStringValidator.php(79): CActiveRecord->__get('status')
+#2 C:\wamp\www\ProtosLabs\HopData\Yii\framework\validators\CValidator.php(213): CStringValidator->validateAttribute(Object(Userinfo), 'status')
+#3 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CModel.php(159): CValidator->validate(Object(Userinfo), NULL)
+#4 C:\wamp\www\ProtosLabs\HopData\Yii\framework\db\ar\CActiveRecord.php(805): CModel->validate(NULL)
+#5 C:\wamp\www\ProtosLabs\HopData\protected\controllers\HopController.php(270): CActiveRecord->save()
+#6 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\actions\CInlineAction.php(49): HopController->actionRefreshStamina()
+#7 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#8 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#9 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#10 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(282): CController->run('refreshstamina')
+#11 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(141): CWebApplication->runController('hop/refreshstam...')
+#12 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#13 C:\wamp\www\ProtosLabs\HopData\index.php(13): CApplication->run()
+#14 {main}
+REQUEST_URI=/ProtosLabs/HopData/index.php/hop/refreshstamina?id=1
+HTTP_REFERER=http://localhost/ProtosLabs/ProtosLabs.Hop/www/
+---
+2014/05/03 09:03:13 [error] [exception.CException] exception 'CException' with message 'Property "Userinfo.status" is not defined.' in C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\wamp\www\ProtosLabs\HopData\Yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('status')
+#1 C:\wamp\www\ProtosLabs\HopData\Yii\framework\validators\CStringValidator.php(79): CActiveRecord->__get('status')
+#2 C:\wamp\www\ProtosLabs\HopData\Yii\framework\validators\CValidator.php(213): CStringValidator->validateAttribute(Object(Userinfo), 'status')
+#3 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CModel.php(159): CValidator->validate(Object(Userinfo), NULL)
+#4 C:\wamp\www\ProtosLabs\HopData\Yii\framework\db\ar\CActiveRecord.php(805): CModel->validate(NULL)
+#5 C:\wamp\www\ProtosLabs\HopData\protected\controllers\HopController.php(270): CActiveRecord->save()
+#6 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\actions\CInlineAction.php(49): HopController->actionRefreshStamina()
+#7 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#8 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#9 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#10 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(282): CController->run('refreshstamina')
+#11 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(141): CWebApplication->runController('hop/refreshstam...')
+#12 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#13 C:\wamp\www\ProtosLabs\HopData\index.php(13): CApplication->run()
+#14 {main}
+REQUEST_URI=/ProtosLabs/HopData/index.php/hop/refreshstamina?id=1
+HTTP_REFERER=http://localhost/ProtosLabs/ProtosLabs.Hop/www/
+---
+2014/05/03 09:08:38 [error] [exception.CException] exception 'CException' with message 'Property "Userinfo.status" is not defined.' in C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\wamp\www\ProtosLabs\HopData\Yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('status')
+#1 C:\wamp\www\ProtosLabs\HopData\Yii\framework\validators\CStringValidator.php(79): CActiveRecord->__get('status')
+#2 C:\wamp\www\ProtosLabs\HopData\Yii\framework\validators\CValidator.php(213): CStringValidator->validateAttribute(Object(Userinfo), 'status')
+#3 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CModel.php(159): CValidator->validate(Object(Userinfo), NULL)
+#4 C:\wamp\www\ProtosLabs\HopData\Yii\framework\db\ar\CActiveRecord.php(805): CModel->validate(NULL)
+#5 C:\wamp\www\ProtosLabs\HopData\protected\controllers\HopController.php(270): CActiveRecord->save()
+#6 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\actions\CInlineAction.php(49): HopController->actionRefreshStamina()
+#7 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#8 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#9 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#10 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(282): CController->run('refreshstamina')
+#11 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(141): CWebApplication->runController('hop/refreshstam...')
+#12 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#13 C:\wamp\www\ProtosLabs\HopData\index.php(13): CApplication->run()
+#14 {main}
+REQUEST_URI=/ProtosLabs/HopData/index.php/hop/refreshstamina?id=1
+HTTP_REFERER=http://localhost/ProtosLabs/ProtosLabs.Hop/www/
+---
+2014/05/03 09:11:31 [error] [exception.CException] exception 'CException' with message 'Property "Userinfo.status" is not defined.' in C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\wamp\www\ProtosLabs\HopData\Yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('status')
+#1 C:\wamp\www\ProtosLabs\HopData\Yii\framework\validators\CStringValidator.php(79): CActiveRecord->__get('status')
+#2 C:\wamp\www\ProtosLabs\HopData\Yii\framework\validators\CValidator.php(213): CStringValidator->validateAttribute(Object(Userinfo), 'status')
+#3 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CModel.php(159): CValidator->validate(Object(Userinfo), NULL)
+#4 C:\wamp\www\ProtosLabs\HopData\Yii\framework\db\ar\CActiveRecord.php(805): CModel->validate(NULL)
+#5 C:\wamp\www\ProtosLabs\HopData\protected\controllers\HopController.php(270): CActiveRecord->save()
+#6 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\actions\CInlineAction.php(49): HopController->actionRefreshStamina()
+#7 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#8 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#9 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#10 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(282): CController->run('refreshstamina')
+#11 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(141): CWebApplication->runController('hop/refreshstam...')
+#12 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#13 C:\wamp\www\ProtosLabs\HopData\index.php(13): CApplication->run()
+#14 {main}
+REQUEST_URI=/ProtosLabs/HopData/index.php/hop/refreshstamina?id=1
+HTTP_REFERER=http://localhost/ProtosLabs/ProtosLabs.Hop/www/
+---
+2014/05/03 09:14:31 [error] [exception.CException] exception 'CException' with message 'Property "Userinfo.status" is not defined.' in C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\wamp\www\ProtosLabs\HopData\Yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('status')
+#1 C:\wamp\www\ProtosLabs\HopData\Yii\framework\validators\CStringValidator.php(79): CActiveRecord->__get('status')
+#2 C:\wamp\www\ProtosLabs\HopData\Yii\framework\validators\CValidator.php(213): CStringValidator->validateAttribute(Object(Userinfo), 'status')
+#3 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CModel.php(159): CValidator->validate(Object(Userinfo), NULL)
+#4 C:\wamp\www\ProtosLabs\HopData\Yii\framework\db\ar\CActiveRecord.php(805): CModel->validate(NULL)
+#5 C:\wamp\www\ProtosLabs\HopData\protected\controllers\HopController.php(270): CActiveRecord->save()
+#6 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\actions\CInlineAction.php(49): HopController->actionRefreshStamina()
+#7 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#8 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#9 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#10 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(282): CController->run('refreshstamina')
+#11 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(141): CWebApplication->runController('hop/refreshstam...')
+#12 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#13 C:\wamp\www\ProtosLabs\HopData\index.php(13): CApplication->run()
+#14 {main}
+REQUEST_URI=/ProtosLabs/HopData/index.php/hop/refreshstamina?id=1
+HTTP_REFERER=http://localhost/ProtosLabs/ProtosLabs.Hop/www/
+---
+2014/05/03 09:27:09 [error] [exception.CException] exception 'CException' with message 'Property "Userinfo.status" is not defined.' in C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\wamp\www\ProtosLabs\HopData\Yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('status')
+#1 C:\wamp\www\ProtosLabs\HopData\Yii\framework\validators\CStringValidator.php(79): CActiveRecord->__get('status')
+#2 C:\wamp\www\ProtosLabs\HopData\Yii\framework\validators\CValidator.php(213): CStringValidator->validateAttribute(Object(Userinfo), 'status')
+#3 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CModel.php(159): CValidator->validate(Object(Userinfo), NULL)
+#4 C:\wamp\www\ProtosLabs\HopData\Yii\framework\db\ar\CActiveRecord.php(805): CModel->validate(NULL)
+#5 C:\wamp\www\ProtosLabs\HopData\protected\controllers\HopController.php(270): CActiveRecord->save()
+#6 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\actions\CInlineAction.php(49): HopController->actionRefreshStamina()
+#7 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#8 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#9 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#10 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(282): CController->run('refreshstamina')
+#11 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(141): CWebApplication->runController('hop/refreshstam...')
+#12 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#13 C:\wamp\www\ProtosLabs\HopData\index.php(13): CApplication->run()
+#14 {main}
+REQUEST_URI=/ProtosLabs/HopData/index.php/hop/refreshstamina?id=1
+HTTP_REFERER=http://localhost/ProtosLabs/ProtosLabs.Hop/www/
+---
+2014/05/03 09:29:15 [error] [exception.CException] exception 'CException' with message 'Property "Userinfo.status" is not defined.' in C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\wamp\www\ProtosLabs\HopData\Yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('status')
+#1 C:\wamp\www\ProtosLabs\HopData\Yii\framework\validators\CStringValidator.php(79): CActiveRecord->__get('status')
+#2 C:\wamp\www\ProtosLabs\HopData\Yii\framework\validators\CValidator.php(213): CStringValidator->validateAttribute(Object(Userinfo), 'status')
+#3 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CModel.php(159): CValidator->validate(Object(Userinfo), NULL)
+#4 C:\wamp\www\ProtosLabs\HopData\Yii\framework\db\ar\CActiveRecord.php(805): CModel->validate(NULL)
+#5 C:\wamp\www\ProtosLabs\HopData\protected\controllers\HopController.php(270): CActiveRecord->save()
+#6 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\actions\CInlineAction.php(49): HopController->actionRefreshStamina()
+#7 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#8 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#9 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#10 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(282): CController->run('refreshstamina')
+#11 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(141): CWebApplication->runController('hop/refreshstam...')
+#12 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#13 C:\wamp\www\ProtosLabs\HopData\index.php(13): CApplication->run()
+#14 {main}
+REQUEST_URI=/ProtosLabs/HopData/index.php/hop/refreshstamina?id=1
+HTTP_REFERER=http://localhost/ProtosLabs/ProtosLabs.Hop/www/
+---
+2014/05/03 09:37:58 [error] [exception.CException] exception 'CException' with message 'Property "Userinfo.status" is not defined.' in C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\wamp\www\ProtosLabs\HopData\Yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('status')
+#1 C:\wamp\www\ProtosLabs\HopData\Yii\framework\validators\CStringValidator.php(79): CActiveRecord->__get('status')
+#2 C:\wamp\www\ProtosLabs\HopData\Yii\framework\validators\CValidator.php(213): CStringValidator->validateAttribute(Object(Userinfo), 'status')
+#3 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CModel.php(159): CValidator->validate(Object(Userinfo), NULL)
+#4 C:\wamp\www\ProtosLabs\HopData\Yii\framework\db\ar\CActiveRecord.php(805): CModel->validate(NULL)
+#5 C:\wamp\www\ProtosLabs\HopData\protected\controllers\HopController.php(270): CActiveRecord->save()
+#6 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\actions\CInlineAction.php(49): HopController->actionRefreshStamina()
+#7 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#8 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#9 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#10 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(282): CController->run('refreshstamina')
+#11 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(141): CWebApplication->runController('hop/refreshstam...')
+#12 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#13 C:\wamp\www\ProtosLabs\HopData\index.php(13): CApplication->run()
+#14 {main}
+REQUEST_URI=/ProtosLabs/HopData/index.php/hop/refreshstamina?id=1
+HTTP_REFERER=http://localhost/ProtosLabs/ProtosLabs.Hop/www/
+---
+2014/05/03 09:53:04 [error] [exception.CException] exception 'CException' with message 'Property "Userinfo.status" is not defined.' in C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\wamp\www\ProtosLabs\HopData\Yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('status')
+#1 C:\wamp\www\ProtosLabs\HopData\Yii\framework\validators\CStringValidator.php(79): CActiveRecord->__get('status')
+#2 C:\wamp\www\ProtosLabs\HopData\Yii\framework\validators\CValidator.php(213): CStringValidator->validateAttribute(Object(Userinfo), 'status')
+#3 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CModel.php(159): CValidator->validate(Object(Userinfo), NULL)
+#4 C:\wamp\www\ProtosLabs\HopData\Yii\framework\db\ar\CActiveRecord.php(805): CModel->validate(NULL)
+#5 C:\wamp\www\ProtosLabs\HopData\protected\controllers\HopController.php(270): CActiveRecord->save()
+#6 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\actions\CInlineAction.php(49): HopController->actionRefreshStamina()
+#7 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#8 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#9 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#10 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(282): CController->run('refreshstamina')
+#11 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(141): CWebApplication->runController('hop/refreshstam...')
+#12 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#13 C:\wamp\www\ProtosLabs\HopData\index.php(13): CApplication->run()
+#14 {main}
+REQUEST_URI=/ProtosLabs/HopData/index.php/hop/refreshstamina?id=1
+HTTP_REFERER=http://localhost/ProtosLabs/ProtosLabs.Hop/www/
+---
+2014/05/03 10:10:02 [error] [exception.CException] exception 'CException' with message 'Property "Userinfo.status" is not defined.' in C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\wamp\www\ProtosLabs\HopData\Yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('status')
+#1 C:\wamp\www\ProtosLabs\HopData\Yii\framework\validators\CStringValidator.php(79): CActiveRecord->__get('status')
+#2 C:\wamp\www\ProtosLabs\HopData\Yii\framework\validators\CValidator.php(213): CStringValidator->validateAttribute(Object(Userinfo), 'status')
+#3 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CModel.php(159): CValidator->validate(Object(Userinfo), NULL)
+#4 C:\wamp\www\ProtosLabs\HopData\Yii\framework\db\ar\CActiveRecord.php(805): CModel->validate(NULL)
+#5 C:\wamp\www\ProtosLabs\HopData\protected\controllers\HopController.php(270): CActiveRecord->save()
+#6 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\actions\CInlineAction.php(49): HopController->actionRefreshStamina()
+#7 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#8 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#9 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#10 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(282): CController->run('refreshstamina')
+#11 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(141): CWebApplication->runController('hop/refreshstam...')
+#12 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#13 C:\wamp\www\ProtosLabs\HopData\index.php(13): CApplication->run()
+#14 {main}
+REQUEST_URI=/ProtosLabs/HopData/index.php/hop/refreshstamina?id=1
+HTTP_REFERER=http://localhost/ProtosLabs/ProtosLabs.Hop/www/
+---
+2014/05/03 10:12:33 [error] [exception.CException] exception 'CException' with message 'Property "Userinfo.status" is not defined.' in C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\wamp\www\ProtosLabs\HopData\Yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('status')
+#1 C:\wamp\www\ProtosLabs\HopData\Yii\framework\validators\CStringValidator.php(79): CActiveRecord->__get('status')
+#2 C:\wamp\www\ProtosLabs\HopData\Yii\framework\validators\CValidator.php(213): CStringValidator->validateAttribute(Object(Userinfo), 'status')
+#3 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CModel.php(159): CValidator->validate(Object(Userinfo), NULL)
+#4 C:\wamp\www\ProtosLabs\HopData\Yii\framework\db\ar\CActiveRecord.php(805): CModel->validate(NULL)
+#5 C:\wamp\www\ProtosLabs\HopData\protected\controllers\HopController.php(270): CActiveRecord->save()
+#6 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\actions\CInlineAction.php(49): HopController->actionRefreshStamina()
+#7 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#8 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#9 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#10 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(282): CController->run('refreshstamina')
+#11 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(141): CWebApplication->runController('hop/refreshstam...')
+#12 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#13 C:\wamp\www\ProtosLabs\HopData\index.php(13): CApplication->run()
+#14 {main}
+REQUEST_URI=/ProtosLabs/HopData/index.php/hop/refreshstamina?id=1
+HTTP_REFERER=http://localhost/ProtosLabs/ProtosLabs.Hop/www/
+---

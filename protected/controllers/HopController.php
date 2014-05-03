@@ -186,9 +186,9 @@ class HopController extends Controller
 			}
 			else{
 				$userInfo = $this->loadUserInfoModel(array($user->id),'log_id');
-				$rows1[] = array('username'=>$user->username);
-				$rows2[] = array('id'=>$userInfo->id,'stamina'=>$userInfo->stamina, 'image'=>$userInfo->image);
-				print(json_encode(array('error'=>'0','userlog'=>$rows1,'userinfo'=>$rows2)));	
+				$rows[] = array('id'=>$userInfo->id,'username'=>$user->username,'stamina'=>$userInfo->stamina,'image'=>$userInfo->image);
+
+				print(json_encode(array('error'=>'0','data'=>$rows)));	
 			}
 		}
 	} 
@@ -231,7 +231,7 @@ class HopController extends Controller
 					}
 					else{
 						$rows[] = $barInfo->attributes;
-						print(json_encode(array('error'=>'0','bar'=>$rows)));	
+						print(json_encode(array('error'=>'0','data'=>$rows)));	
 					}			
 				}
 			}
@@ -368,12 +368,13 @@ class HopController extends Controller
 			}
 			else{
 				$userLogModel = Userlog::model()->findByPk($userInfo->log_id);
+				$classModel = Classtype::model()->findByPk($userInfo->class_id);
 				$lvlModel = Level::model()->findByPk($userInfo->lvl_id);
 				$title = $this->getTitle($userInfo,$lvlModel);
-				
-				$rows[] = array('RFID'=>$userInfo->rfid, 'username'=>$userLogModel->username, 'password'=>$userLogModel->password, 
+	
+ 				$rows[] = array('RFID'=>$userInfo->rfid, 'username'=>$userLogModel->username, 'password'=>$userLogModel->password, 'class'=>$classModel->name,
 								'level'=>$userInfo->lvl_id,'title'=>$title,'currentExp'=>$userInfo->currentExp, 'nextLevel'=>$lvlModel->expNeeded,
-								'status_id'=>$userInfo->status_id,'status'=>$userInfo->status, 'stamina'=>$userInfo->stamina,'gender'=>$userInfo->gender, 'email'=>$userInfo->email, 
+								'status_id'=>$userInfo->status_id,'about'=>$userInfo->about, 'stamina'=>$userInfo->stamina,'gender'=>$userInfo->gender, 'email'=>$userInfo->email, 
 								'image'=>$userInfo->image);
 				print(json_encode(array('error'=>'0','data'=>$rows)));
 			}			
@@ -761,29 +762,8 @@ class HopController extends Controller
 		}
 	}
 
-	// build into one function
-	public function actionGetModels(){
-
-	}
-
 	public function actionGetAllArea(){
 		$models = Area::model()->findAll();
-		foreach ($models as $model) {
-				$rows[] = $model->attributes;
-		}
-		print(json_encode(array('data'=>$rows)));
-	}
-	
-	public function actionGetAllLevel(){
-		$models = Level::model()->findAll();
-		foreach ($models as $model) {
-				$rows[] = $model->attributes;
-		}
-		print(json_encode(array('data'=>$rows)));
-	}
-
-	public function actionGetAllStatus(){
-		$models = Status::model()->findAll();
 		foreach ($models as $model) {
 				$rows[] = $model->attributes;
 		}
@@ -802,24 +782,9 @@ class HopController extends Controller
 
         $models = Userinfo::model()->with('usercurrentbars')->findAll();
 		foreach ($models as $model){
-			$userLogModel = Userlog::model()->findByPk($model->log_id);
-			$lvlModel 	  = Level::model()->findByPk($model->lvl_id);
-			$statModel 	  = Status::model()->findByPk($model->status_id);
-
-			$rows[] = array('id'=>$model->id, 
-							'username'=>$userLogModel->username, 
-							'level'=>$model->lvl_id,
-							'title'=>$lvlModel->aliasName,
-							'currentExp'=>$model->currentExp,
-							'status'=>$statModel->status,
-							'gender'=>$model->gender, 
-							'email'=>$model->email, 
-							'bar_id'=>$model->usercurrentbars->bar_id,
-							'lastUpdate'=>$model->lastUpdate,
-							'deleted'=>$model->deleted);
+			$rows[] = $this->getModifiedUsers($model);
 		}
 		print(json_encode(array('data'=>$rows)));
-
 	}
 
 	public function actionModifiedUsers(){
@@ -836,11 +801,7 @@ class HopController extends Controller
 			if(!empty($models)){
 
 				foreach($models as $model){
-					$userLogModel = Userlog::model()->findByPk($model->log_id);
-					$lvlModel = Level::model()->findByPk($model->lvl_id);
-					$statModel = Status::model()->findByPk($model->status_id);
-					$rows[] = array('id'=>$model->id,'username'=>$userLogModel->username, 'level'=>$model->lvl_id, 'title'=>$lvlModel->aliasName,
-								    'currentExp'=>$model->currentExp,'status'=>$statModel->status,'bar_id'=>$model->usercurrentbars->bar_id, 'lastUpdate'=>$model->lastUpdate,'deleted'=>$model->deleted);
+					$rows[] = $this->getModifiedUsers($model);
 				}
 				print(json_encode(array('error'=>'0','data'=>$rows)));
 			}
@@ -848,6 +809,35 @@ class HopController extends Controller
 				print(json_encode(array('error'=>'1')));	
 		}
 
+	}
+
+	public function getModifiedUsers($model){
+
+			$userLogModel = Userlog::model()->findByPk($model->log_id);
+			$lvlModel 	  = Level::model()->findByPk($model->lvl_id);
+			$statModel 	  = Status::model()->findByPk($model->status_id);
+			$classModel   = Classtype::model()->findByPk($model->class_id);
+			$title 	      = $this->getTitle($model,$lvlModel);
+
+			$rows[] = array('id'=>$model->id, 
+							'rfid'=>$model->rfid,
+							'username'=>$userLogModel->username, 
+							'password'=>$userLogModel->password,
+							'class'=>$classModel->name,
+							'level'=>$model->lvl_id,
+							'title'=>$title,
+							'currentExp'=>$model->currentExp,
+							'expNeeded'=>$lvlModel->expNeeded,
+							'status_id'=>$model->status_id,
+							'about'=>$model->about,
+							'gender'=>$model->gender, 
+							'email'=>$model->email, 
+							'bar_id'=>$model->usercurrentbars->bar_id,
+							'image'=>$model->image,
+							'lastUpdate'=>$model->lastUpdate,
+							'deleted'=>$model->deleted);
+
+			return $rows;
 	}
 
 	public function actionModifiedBars(){
