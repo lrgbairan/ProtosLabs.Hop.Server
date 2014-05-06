@@ -13,7 +13,7 @@
  * @property string $email
  * @property integer $currentExp
  * @property integer $status_id
- * @property string $status
+ * @property string $about
  * @property integer $stamina
  * @property string $nextRefresh
  * @property string $image
@@ -44,11 +44,13 @@ class Userinfo extends CActiveRecord
 			array('rfid, gender, email', 'required'),
 			array('log_id, class_id, lvl_id, currentExp, status_id, stamina, deleted', 'numerical', 'integerOnly'=>true),
 			array('rfid', 'length', 'max'=>20),
-			array('email, status, image', 'length', 'max'=>128),
+			array('email', 'length', 'max'=>128),
+			array('about', 'length', 'max'=>200),
+			array('image', 'length', 'max'=>5000),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, rfid, log_id, class_id, lvl_id, gender, email, currentExp, status_id, status, stamina, nextRefresh, image, lastUpdate, deleted', 'safe', 'on'=>'search'),
-		
+			array('id, rfid, log_id, class_id, lvl_id, gender, email, currentExp, status_id, about, stamina, nextRefresh, image, lastUpdate, deleted', 'safe', 'on'=>'search'),
+
 
 			array('lastUpdate','default',
               	  'value'=>new CDbExpression('NOW()'),
@@ -78,7 +80,6 @@ class Userinfo extends CActiveRecord
               	  'value'=> DateTime::createFromFormat('Y-m-d', date('Y-m-d'))->modify('+1 day')->format('Y-m-d'),
               	  'setOnEmpty'=>false,'on'=>'insert'),
 		);
-
 	}
 
 	/**
@@ -108,7 +109,7 @@ class Userinfo extends CActiveRecord
 			'email' => 'Email',
 			'currentExp' => 'Current Exp',
 			'status_id' => 'Status',
-			'status' => 'Status',
+			'about' => 'About',
 			'stamina' => 'Stamina',
 			'nextRefresh' => 'Next Refresh',
 			'image' => 'Image',
@@ -144,7 +145,7 @@ class Userinfo extends CActiveRecord
 		$criteria->compare('email',$this->email,true);
 		$criteria->compare('currentExp',$this->currentExp);
 		$criteria->compare('status_id',$this->status_id);
-		$criteria->compare('status',$this->status,true);
+		$criteria->compare('about',$this->about,true);
 		$criteria->compare('stamina',$this->stamina);
 		$criteria->compare('nextRefresh',$this->nextRefresh,true);
 		$criteria->compare('image',$this->image,true);
@@ -155,6 +156,7 @@ class Userinfo extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
 
 	public function updateStatus($statusId){
 

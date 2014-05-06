@@ -186,7 +186,10 @@ class HopController extends Controller
 			}
 			else{
 				$userInfo = $this->loadUserInfoModel(array($user->id),'log_id');
-				$rows[] = array('id'=>$userInfo->id,'username'=>$user->username,'stamina'=>$userInfo->stamina,'image'=>$userInfo->image);
+				$settingsModel = Usersettings::model()->findByPk($userInfo->id);
+				$rows[] = array('id'=>$userInfo->id,'username'=>$user->username,'stamina'=>$userInfo->stamina,'image'=>$userInfo->image,
+								'filterMale'=>$settingsModel->filterMale,'filterFemale'=>$settingsModel->filterFemale,'vibrate'=>$settingsModel->vibrate,
+								'sound'=>$settingsModel->sound);
 
 				print(json_encode(array('error'=>'0','data'=>$rows)));	
 			}
@@ -743,6 +746,41 @@ class HopController extends Controller
 		}
 		else
 			print(json_encode(array("flag"=>"false")));		
+	}
+
+	public function actionUpdateImage(){
+		
+		if(isset($_POST["image"]) && isset($_POST['id'])){
+
+			$id = $_POST['id'];
+			$image = $_POST["image"];
+			$userInfo = Userinfo::model()->findByPk($id);
+			if(!empty($userInfo)){
+				$userInfo->image = $image;
+				if($userInfo->save())
+					print(json_encode(array("flag"=>"true")));
+				else
+					print(json_encode(array("flag"=>"false")));
+			}
+		}
+	}
+
+	public function actionUpdateFilter(){
+
+		if(isset($_GET["id"]) && isset($_GET["type"]) && isset($_GET["value"])){
+
+			$id = $_GET["id"];
+			$type = $_GET["type"];
+			$value = $_GET["value"];
+			$userInfo = Usersettings::model()->findByPk($id);
+			if(!empty($userInfo)){
+				$userInfo[$type] = $value;
+				if($userInfo->save())
+					print(json_encode(array("flag"=>"true")));
+				else
+					print(json_encode(array("flag"=>"false")));
+			}
+		}
 	}
 
 	
