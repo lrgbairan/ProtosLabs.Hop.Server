@@ -28976,3 +28976,36 @@ Stack trace:
 #14 {main}
 REQUEST_URI=/ProtosLabs/HopData/index.php/Hop/refreshstamina?id=1
 ---
+2014/05/07 08:51:27 [error] [php] Trying to get property of non-object (C:\wamp\www\ProtosLabs\HopData\protected\controllers\HopController.php:264)
+Stack trace:
+#0 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(286): HopController->runAction()
+#1 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(265): HopController->runActionWithFilters()
+#2 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(282): HopController->run()
+#3 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#4 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#5 C:\wamp\www\ProtosLabs\HopData\index.php(13): CWebApplication->run()
+REQUEST_URI=/ProtosLabs/HopData/index.php/hop/users?bar=3&gender=Male
+in C:\wamp\www\ProtosLabs\HopData\protected\controllers\HopController.php (264)
+in C:\wamp\www\ProtosLabs\HopData\index.php (13)
+2014/05/07 08:54:15 [error] [php] Trying to get property of non-object (C:\wamp\www\ProtosLabs\HopData\protected\controllers\HopController.php:262)
+Stack trace:
+#0 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(286): HopController->runAction()
+#1 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(265): HopController->runActionWithFilters()
+#2 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(282): HopController->run()
+#3 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#4 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#5 C:\wamp\www\ProtosLabs\HopData\index.php(13): CWebApplication->run()
+REQUEST_URI=/ProtosLabs/HopData/index.php/hop/users?bar=3&gender=Male
+in C:\wamp\www\ProtosLabs\HopData\protected\controllers\HopController.php (262)
+in C:\wamp\www\ProtosLabs\HopData\index.php (13)
+2014/05/07 09:00:53 [error] [php] Trying to get property of non-object (C:\wamp\www\ProtosLabs\HopData\protected\controllers\HopController.php:263)
+Stack trace:
+#0 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(286): HopController->runAction()
+#1 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CController.php(265): HopController->runActionWithFilters()
+#2 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(282): HopController->run()
+#3 C:\wamp\www\ProtosLabs\HopData\Yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#4 C:\wamp\www\ProtosLabs\HopData\Yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#5 C:\wamp\www\ProtosLabs\HopData\index.php(13): CWebApplication->run()
+REQUEST_URI=/ProtosLabs/HopData/index.php/hop/users?bar=3&gender=Female
+in C:\wamp\www\ProtosLabs\HopData\protected\controllers\HopController.php (263)
+in C:\wamp\www\ProtosLabs\HopData\index.php (13)

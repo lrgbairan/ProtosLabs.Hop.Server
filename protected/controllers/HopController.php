@@ -245,14 +245,25 @@ class HopController extends Controller
 
 	public function actionUsers(){
 
-		if(isset($_GET['bar'])){
+		if(isset($_GET['bar']) && isset($_GET["gender"])){
+			$bar_id = $_GET["bar"];
+			$gender = $_GET["gender"];
 
-			$users = Usercurrentbar::model()->findAll('bar_id=?',array($_GET['bar']));
-			if(!empty($users)){
-				foreach($users as $user){
+			$usersModel = Usercurrentbar::model()->findAll('bar_id=?',array($bar_id));
+			if(!empty($usersModel)){
+				foreach($usersModel as $user){
+
 					$userInfo = Userinfo::model()->findByPk($user->user_id);
-					$userLogModel = Userlog::model()->findByPk($userInfo->log_id);
-					$rows[] = array('id'=>$userInfo->id,'username'=>$userLogModel->username, 'image'=>$userInfo->image, 'status_id'=>$userInfo->status_id);
+					if($gender === "Both"){
+						$userLogModel = Userlog::model()->findByPk($userInfo->log_id);
+						$rows[] = array('id'=>$userInfo->id,'username'=>$userLogModel->username, 'image'=>$userInfo->image, 'status_id'=>$userInfo->status_id);
+					}
+					else{
+						if($userInfo->gender === $gender){
+							$userLogModel = Userlog::model()->findByPk($userInfo->log_id);
+							$rows[] = array('id'=>$userInfo->id,'username'=>$userLogModel->username, 'image'=>$userInfo->image, 'status_id'=>$userInfo->status_id);
+						}			
+					}					
 				}
 				print(json_encode(array('flag'=>'true','users'=>$rows)));
 			}
