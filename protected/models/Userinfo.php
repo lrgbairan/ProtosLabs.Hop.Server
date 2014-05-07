@@ -14,8 +14,6 @@
  * @property integer $currentExp
  * @property integer $status_id
  * @property string $about
- * @property integer $stamina
- * @property string $nextRefresh
  * @property string $image
  * @property string $lastUpdate
  * @property integer $deleted
@@ -41,16 +39,15 @@ class Userinfo extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('rfid, gender, email', 'required'),
-			array('log_id, class_id, lvl_id, currentExp, status_id, stamina, deleted', 'numerical', 'integerOnly'=>true),
+			array('rfid,gender, email', 'required'),
+			array('log_id, class_id, lvl_id, currentExp, status_id, deleted', 'numerical', 'integerOnly'=>true),
 			array('rfid', 'length', 'max'=>20),
 			array('email', 'length', 'max'=>128),
 			array('about', 'length', 'max'=>200),
 			array('image', 'length', 'max'=>5000),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, rfid, log_id, class_id, lvl_id, gender, email, currentExp, status_id, about, stamina, nextRefresh, image, lastUpdate, deleted', 'safe', 'on'=>'search'),
-
+			array('id, rfid, log_id, class_id, lvl_id, gender, email, currentExp, status_id, about, image, lastUpdate, deleted', 'safe', 'on'=>'search'),
 
 			array('lastUpdate','default',
               	  'value'=>new CDbExpression('NOW()'),
@@ -73,11 +70,11 @@ class Userinfo extends CActiveRecord
 			array('status_id','default',
               	  'value'=>1,
               	  'setOnEmpty'=>false,'on'=>'insert'),
-			array('stamina','default',
-              	  'value'=>100,
+			array('about','default',
+              	  'value'=>'Welcome to Hop',
               	  'setOnEmpty'=>false,'on'=>'insert'),
-			array('nextRefresh','default',
-              	  'value'=> DateTime::createFromFormat('Y-m-d', date('Y-m-d'))->modify('+1 day')->format('Y-m-d'),
+			array('image','default',
+              	  'value'=>'1.jpg',
               	  'setOnEmpty'=>false,'on'=>'insert'),
 		);
 	}
@@ -110,8 +107,6 @@ class Userinfo extends CActiveRecord
 			'currentExp' => 'Current Exp',
 			'status_id' => 'Status',
 			'about' => 'About',
-			'stamina' => 'Stamina',
-			'nextRefresh' => 'Next Refresh',
 			'image' => 'Image',
 			'lastUpdate' => 'Last Update',
 			'deleted' => 'Deleted',
@@ -146,8 +141,6 @@ class Userinfo extends CActiveRecord
 		$criteria->compare('currentExp',$this->currentExp);
 		$criteria->compare('status_id',$this->status_id);
 		$criteria->compare('about',$this->about,true);
-		$criteria->compare('stamina',$this->stamina);
-		$criteria->compare('nextRefresh',$this->nextRefresh,true);
 		$criteria->compare('image',$this->image,true);
 		$criteria->compare('lastUpdate',$this->lastUpdate,true);
 		$criteria->compare('deleted',$this->deleted);

@@ -1,23 +1,21 @@
 <?php
 
 /**
- * This is the model class for table "{{level}}".
+ * This is the model class for table "{{usernotification}}".
  *
- * The followings are the available columns in table '{{level}}':
+ * The followings are the available columns in table '{{usernotification}}':
  * @property integer $id
- * @property string $aliasName
- * @property string $mingleName
- * @property string $alcoholName
- * @property integer $expNeeded
+ * @property integer $user_id
+ * @property integer $description
  */
-class Level extends CActiveRecord
+class Usernotification extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return '{{level}}';
+		return '{{usernotification}}';
 	}
 
 	/**
@@ -28,12 +26,11 @@ class Level extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('aliasName, mingleName, alcoholName, expNeeded', 'required'),
-			array('expNeeded', 'numerical', 'integerOnly'=>true),
-			array('aliasName, mingleName, alcoholName', 'length', 'max'=>128),
+			array('user_id, description', 'required'),
+			array('user_id, description', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, aliasName, mingleName, alcoholName, expNeeded', 'safe', 'on'=>'search'),
+			array('id, user_id, description', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -55,10 +52,8 @@ class Level extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'aliasName' => 'Alias Name',
-			'mingleName' => 'Mingle Name',
-			'alcoholName' => 'Alcohol Name',
-			'expNeeded' => 'Exp Needed',
+			'user_id' => 'User',
+			'description' => 'Description',
 		);
 	}
 
@@ -81,10 +76,8 @@ class Level extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('aliasName',$this->aliasName,true);
-		$criteria->compare('mingleName',$this->mingleName,true);
-		$criteria->compare('alcoholName',$this->alcoholName,true);
-		$criteria->compare('expNeeded',$this->expNeeded);
+		$criteria->compare('user_id',$this->user_id);
+		$criteria->compare('description',$this->description);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -95,7 +88,7 @@ class Level extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Level the static model class
+	 * @return Usernotification the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
