@@ -1,5 +1,5 @@
 <?php
-/* @var $this SiteController */
+/* @var $this HopController */
 
 $this->pageTitle=Yii::app()->name;
 ?>

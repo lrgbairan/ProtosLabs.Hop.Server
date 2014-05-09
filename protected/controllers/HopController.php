@@ -181,18 +181,17 @@ class HopController extends Controller
 			$model->password = $_GET['password'];
 
 			$user = $model->login();
-			if($user === null){
-				print(json_encode(array('error'=>'1')));
-			}
-			else{
+			if(!empty($user)){
 				$userInfo = $this->loadUserInfoModel(array($user->id),'log_id');
 				$settingsModel = Usersettings::model()->findByPk($userInfo->id);
 				$rows[] = array('id'=>$userInfo->id,'username'=>$user->username,'image'=>$userInfo->image,
 								'filterMale'=>$settingsModel->filterMale,'filterFemale'=>$settingsModel->filterFemale,'vibrate'=>$settingsModel->vibrate,
 								'sound'=>$settingsModel->sound);
 
-				print(json_encode(array('error'=>'0','data'=>$rows)));	
+				print(json_encode(array("flag"=>"true","data"=>$rows)));	
 			}
+			else
+				print(json_encode(array("flag"=>"false")));			
 		}
 	} 
 
@@ -221,25 +220,29 @@ class HopController extends Controller
 
 	public function actionCurrentBar(){
 
-		if(isset($_GET['id'])){
-			if($_GET['id'] !== '0'){
-				$userCurrentBar = $this->loadUserCurrentBarModel(array($_GET['id']));
-				if($userCurrentBar === null){}
-				else{
+		if(isset($_GET["id"])){
+			$id = $_GET["id"];
+
+			if($id !== "0"){
+
+				$id = $_GET["id"];
+				$userCurrentBar = $this->loadUserCurrentBarModel(array($id));
+				if(!empty($userCurrentBar)){
 					$criteria=new CDbCriteria;
-					$criteria->addInCondition('id',array($userCurrentBar['bar_id']));
+					$criteria->addInCondition("id",array($userCurrentBar->bar_id));
 					$barInfo = Barinfo::model()->find($criteria);
-					if($barInfo === null){
-						print(json_encode(array('error'=>'1')));
-					}
-					else{
+					if(!empty($barInfo)){
 						$rows[] = $barInfo->attributes;
-						print(json_encode(array('error'=>'0','data'=>$rows)));	
-					}			
+						print(json_encode(array("flag"=>"true","data"=>$rows)));	
+					}
+					else
+						print(json_encode(array("flag"=>"false")));	
 				}
+				else
+					print(json_encode(array("flag"=>"false")));	
 			}
 			else
-				print(json_encode(array('error'=>'1')));
+				print(json_encode(array("flag"=>"false")));
 		}	
 	}
 
@@ -391,10 +394,7 @@ class HopController extends Controller
 
 		if(isset($_GET['id'])){
 			$userInfo = Userinfo::model()->findByPk($_GET['id']);
-			if($userInfo === null){
-				print(json_encode(array('error'=>'1')));
-			}
-			else{
+			if(!empty($userInfo)){
 				$userLogModel = Userlog::model()->findByPk($userInfo->log_id);
 				$classModel = Classtype::model()->findByPk($userInfo->class_id);
 				$lvlModel = Level::model()->findByPk($userInfo->lvl_id);
@@ -404,8 +404,10 @@ class HopController extends Controller
 								'level'=>$userInfo->lvl_id,'title'=>$title,'currentExp'=>$userInfo->currentExp, 'nextLevel'=>$lvlModel->expNeeded,
 								'status_id'=>$userInfo->status_id,'about'=>$userInfo->about,'gender'=>$userInfo->gender, 'email'=>$userInfo->email, 
 								'image'=>$userInfo->image);
-				print(json_encode(array('error'=>'0','data'=>$rows)));
-			}			
+				print(json_encode(array("flag"=>"true",'data'=>$rows)));
+			}
+			else
+				print(json_encode(array("flag"=>"false")));		
 		}
 	}
 
@@ -467,9 +469,9 @@ class HopController extends Controller
 	}
 
 
-	// FOR MINGLE //
+	// FOR HOP//
 
-	public function actionGetMingleRequests(){
+	public function actionGetHopRequests(){
 		if(isset($_GET['id'])){
 			$criteria = new CDbCriteria;
 			$criteria->addInCondition('receiver_id',array($_GET['id']));
@@ -481,14 +483,14 @@ class HopController extends Controller
 					$userLogModel = Userlog::model()->findByPk($userInfo->log_id);
 					$rows[] = array('id'=>$model->id,'user_id'=>$model->user_id, 'username'=>$userLogModel->username);
 				}
-				print(json_encode(array('error'=>'0','data'=>$rows)));
+				print(json_encode(array("flag"=>"true",'data'=>$rows)));
 			}		
 			else
-				print(json_encode(array('error'=>'1')));
+				print(json_encode(array("flag"=>"false")));
 		}
 	}
 
-	public function actionSendMingleRequest(){
+	public function actionSendHopRequest(){
 		if(isset($_GET['user_id']) && isset($_GET['receiver_id'])){
 			$criteria = new CDbCriteria();
 			$criteria->addInCondition('user_id',array($_GET['user_id']));
@@ -508,22 +510,7 @@ class HopController extends Controller
 		}
 	}
 
-	// public function actionConsumeStamina(){
-	// 	if(isset($_GET['id']) && isset($_GET['stamina'])){
-	// 		$userId = $_GET['id'];
-	// 		$stamina = $_GET['stamina'];
-	// 		$model = Userinfo::model()->findByPk($userId);
-	// 		if($model !== null){
-	// 			$model->stamina = (int)$stamina;
-	// 			$model->save();
-	// 			print(json_encode(array('flag'=>'true')));	
-	// 		}
-	// 		else
-	// 			print(json_encode(array('flag'=>'false')));
-	// 	} 
-	// }
-
-	public function actionCheckMingleAccept(){
+	public function actionCheckHopAccept(){
 		$exp = 20;
 		if(isset($_GET['user_id'])){
 			$id = $_GET['user_id'];
@@ -538,7 +525,7 @@ class HopController extends Controller
 					if($model->receiver_token == 1){
 						$flag = true;
 						$model->user_token = 1;
-						if($model->save() && $this->updateUserMingleExp($userInfo,$exp) && $this->updateUserLevel($userInfo,$lvlModel,$exp)){
+						if($model->save() && $this->updateUserHopExp($userInfo,$exp) && $this->updateUserLevel($userInfo,$lvlModel,$exp)){
 							$lvlModel = Level::model()->findByPk($userInfo->lvl_id);
 							$rows[] = array("user_id"=>$model->user_id,"receiver_id"=>$model->receiver_id,
 											"level"=>$userInfo->lvl_id,"currentExp"=>$userInfo->currentExp,"expNeeded"=>$lvlModel->expNeeded);
@@ -555,7 +542,7 @@ class HopController extends Controller
 		}
 	}
 
-	public function updateUserMingleExp($model,$exp){
+	public function updateUserHopExp($model,$exp){
 		$userExpModel = Userexp::model()->findByPk($model->id);
 		$userExpModel->expMingle += $exp;
 		$userExpModel->expTotal += $exp;
@@ -565,7 +552,7 @@ class HopController extends Controller
 			return false;
 	}
 
-	public function actionDeleteMingle(){
+	public function actionDeleteHop(){
 
 		$criteria = new CDbCriteria();
 		$criteria->addInCondition('user_id',array($_GET['user_id']));
@@ -578,7 +565,7 @@ class HopController extends Controller
 		}
 	}
 
-	public function actionAcceptMingleRequest(){
+	public function actionAcceptHopRequest(){
 		$exp = 20;
 		if(isset($_GET['id'])){
 			$model = Mingle::model()->findByPk($_GET['id']);

@@ -59,10 +59,10 @@ return array(
 		// uncomment the following to use a MySQL database
 		
 		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=mysql_barhop',
+			'connectionString' => 'mysql:host=50.62.209.108;port=3306;dbname=HopDB',
 			'emulatePrepare' => true,
-			'username' => 'root',
-			'password' => 'mypass',
+			'username' => 'protoshop',
+			'password' => 'berkeley414',
 			'charset' => 'utf8',
 			'tablePrefix' => 'tbl_',
 		),
