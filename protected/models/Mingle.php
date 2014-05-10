@@ -9,6 +9,7 @@
  * @property integer $receiver_id
  * @property integer $user_token
  * @property integer $receiver_token
+ * @property integer $seen
  * @property string $lastUpdate
  * @property integer $deleted
  */
@@ -31,11 +32,11 @@ class Mingle extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('user_id, receiver_id', 'required'),
-			array('user_id, receiver_id, user_token, receiver_token, deleted', 'numerical', 'integerOnly'=>true),
+			array('user_id, receiver_id, user_token, receiver_token, seen, deleted', 'numerical', 'integerOnly'=>true),
 			array('lastUpdate', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, user_id, receiver_id, user_token, receiver_token, lastUpdate, deleted', 'safe', 'on'=>'search'),
+			array('id, user_id, receiver_id, user_token, receiver_token, seen, lastUpdate, deleted', 'safe', 'on'=>'search'),
 
 			array('lastUpdate','default',
               	  'value'=>new CDbExpression('NOW()'),
@@ -50,6 +51,9 @@ class Mingle extends CActiveRecord
               	  'value'=> 0,
               	  'setOnEmpty'=>false,'on'=>'insert'),
 			array('receiver_token','default',
+              	  'value'=> 0,
+              	  'setOnEmpty'=>false,'on'=>'insert'),
+			array('seen','default',
               	  'value'=> 0,
               	  'setOnEmpty'=>false,'on'=>'insert'),
 		);
@@ -77,6 +81,7 @@ class Mingle extends CActiveRecord
 			'receiver_id' => 'Receiver',
 			'user_token' => 'User Token',
 			'receiver_token' => 'Receiver Token',
+			'seen' => 'Seen',
 			'lastUpdate' => 'Last Update',
 			'deleted' => 'Deleted',
 		);
@@ -105,6 +110,7 @@ class Mingle extends CActiveRecord
 		$criteria->compare('receiver_id',$this->receiver_id);
 		$criteria->compare('user_token',$this->user_token);
 		$criteria->compare('receiver_token',$this->receiver_token);
+		$criteria->compare('seen',$this->seen);
 		$criteria->compare('lastUpdate',$this->lastUpdate,true);
 		$criteria->compare('deleted',$this->deleted);
 

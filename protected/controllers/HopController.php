@@ -60,23 +60,8 @@ class HopController extends Controller
 			$rfid = $_GET['rfid'];
 			$barId = array($_GET['barId']);
 			$userInfo = Userinfo::model()->find("rfid=?",array($rfid));
-			if($userInfo === null){
-				// if rfid tag not registered to database
-			}
-			else{
+			if(!empty($userInfo)){
 				$userLog = Userlog::model()->find("id=?",array($userInfo->log_id));
-				// $lvlModel = $this->loadLvlModel(array($userInfo['lvl_id']));
-				// if($lvlModel === null){
-					
-				// }	
-				// else{
-				// 	if(($userInfo->stamina + 20) > $lvlModel->maxStamina)
-				// 		$userInfo->stamina = (int)$lvlModel->maxStamina;
-				// 	else
-				// 		$userInfo->stamina += 20;
-					
-				// 	$userInfo->save();
-				// }
  				$userCurrentBar = $this->loadUserCurrentBarModel(array($userInfo->id));
 				if($userCurrentBar === null){	
 				}
@@ -84,7 +69,10 @@ class HopController extends Controller
 					$userCurrentBar->updateStatus($userInfo,$_GET['barId']);
 					$rows[] = array("id"=>$userInfo->id,"username"=>$userLog->username,"email"=>$userInfo->email);
 					print(json_encode(array("flag"=>"true","data"=>$rows)));
-				}				
+				}			
+			}
+			else{
+				print(json_encode(array("flag"=>"false")));	
 			}
 		}		
 	}
@@ -98,12 +86,9 @@ class HopController extends Controller
 			}
 			else{
 				$userInfo = $this->loadUserInfoModel(array($userCurrentBar['user_id']), 'id');
-				if($userInfo === null){
-				// if rfid tag not registered to database
-				}
-				else{
+				if(!empty($userInfo)){
 					$userCurrentBar->updateStatus($userInfo,$barId);
-				}				
+				}			
 			}
 		}
 	}
@@ -119,11 +104,6 @@ class HopController extends Controller
 			if(!empty($userInfo)){
 				$lvlModel = Level::model()->findByPk($userInfo->lvl_id);
 				if(!empty($lvlModel)){
-
-					// if(($userInfo->stamina + 20) > $lvlModel->maxStamina)
-					// 	$userInfo->stamina = (int)$lvlModel->maxStamina;
-					// else
-					// 	$userInfo->stamina += 20;
 
 					if($this->updateUserAlcoholExp($userInfo,$exp) && 	$this->updateUserLevel($userInfo,$lvlModel,$exp))
 						print(json_encode(array("flag"=>"true")));
@@ -144,7 +124,7 @@ class HopController extends Controller
 		$userExpModel = Userexp::model()->findByPk($model->id);
 		$userExpModel->expAlcohol += $exp;
 		$userExpModel->expTotal += $exp;
-		if($userExpModel->save())
+		if($userExpModel->update())
 			return true;
 		else 
 			return false;
@@ -161,13 +141,11 @@ class HopController extends Controller
 		else
 			$userModel->currentExp = $currentExp;
 
-		if($userModel->save())
+		if($userModel->update())
 			return true;
 		else
 			return false;
 	}
-
-
 
 	//LOGIN PAGE
 	
@@ -274,28 +252,6 @@ class HopController extends Controller
 				print(json_encode(array('flag'=>'false')));
 		}
 	}
-
-	// public function actionRefreshStamina(){
-	// 	if(isset($_GET['id'])){
-	// 		$id = $_GET['id'];
-	// 		$model = Userinfo::model()->findByPk($id);
-	// 		$lvlModel = Level::model()->findByPk($model->lvl_id);
-	// 		if(!empty($model)){
-	// 			if(strtotime($model->nextRefresh) < strtotime('now')) {
-	// 				$model->nextRefresh = DateTime::createFromFormat('Y-m-d', date('Y-m-d'))->modify('+1 day')->format('Y-m-d');
-	// 				$model->stamina = $lvlModel->maxStamina;
-	// 				if($model->save()){
-	// 					$row[] = array('stamina'=>$model->stamina);
-	// 					print(json_encode(array('flag'=>'true','data'=>$row)));
-	// 				}
-	// 				else
-	// 					print(json_encode(array('flag'=>'false')));
-	// 			}
-	// 			else
-	// 				print(json_encode(array('flag'=>'false')));			
-	// 		}
-	// 	}
-	// }
 
 	public function actionSearchUsers(){
 		if(isset($_GET['searchText'])){
@@ -472,19 +428,54 @@ class HopController extends Controller
 	// FOR HOP//
 
 	public function actionGetHopRequests(){
-		if(isset($_GET['id'])){
+		if(isset($_GET['id']) && isset($_GET['date'])){
+			
+			$id = $_GET['id'];
+			$date = $_GET['date'];
+
 			$criteria = new CDbCriteria;
-			$criteria->addInCondition('receiver_id',array($_GET['id']));
+			$criteria->addInCondition('receiver_id',array($id);
 			$criteria->addInCondition('user_token', array(0));
+			$criteria->addInCondition('seen', array(0));
 			$models = Mingle::model()->findAll($criteria);
 			if(!empty($models)){
 				foreach($models as $model){
+
+					$model->seen = 1;
+					$model->lastUpdate = $date;
+					$model->update();
+
 					$userInfo = Userinfo::model()->findByPk($model->user_id);
 					$userLogModel = Userlog::model()->findByPk($userInfo->log_id);
 					$rows[] = array('id'=>$model->id,'user_id'=>$model->user_id, 'username'=>$userLogModel->username);
 				}
 				print(json_encode(array("flag"=>"true",'data'=>$rows)));
 			}		
+			else
+				print(json_encode(array("flag"=>"false")));
+		}
+	}
+
+	public function actionCheckHopRequests(){
+		if(isset($_GET['id']) && isset($_GET['date'])){
+
+			$date = $_GET['date'];
+	
+			$criteria = new CDbCriteria;
+			$criteria->condition = 't.lastUpdate > :date';
+			$criteria->params = array(':date'=>$date);	
+
+			$criteria->addInCondition('receiver_id',array($_GET['id']));
+			$criteria->addInCondition('user_token', array(0));
+			$criteria->addInCondition('seen', array(0));
+			$models = Mingle::model()->findAll($criteria);
+			if(!empty($models)){
+				foreach($models as $model){
+					$model->lastUpdate = $date;
+					$model->update();
+				}
+				print(json_encode(array("flag"=>"true")));
+			}
 			else
 				print(json_encode(array("flag"=>"false")));
 		}
@@ -525,7 +516,7 @@ class HopController extends Controller
 					if($model->receiver_token == 1){
 						$flag = true;
 						$model->user_token = 1;
-						if($model->save() && $this->updateUserHopExp($userInfo,$exp) && $this->updateUserLevel($userInfo,$lvlModel,$exp)){
+						if($model->update() && $this->updateUserHopExp($userInfo,$exp) && $this->updateUserLevel($userInfo,$lvlModel,$exp)){
 							$lvlModel = Level::model()->findByPk($userInfo->lvl_id);
 							$rows[] = array("user_id"=>$model->user_id,"receiver_id"=>$model->receiver_id,
 											"level"=>$userInfo->lvl_id,"currentExp"=>$userInfo->currentExp,"expNeeded"=>$lvlModel->expNeeded);
@@ -546,7 +537,7 @@ class HopController extends Controller
 		$userExpModel = Userexp::model()->findByPk($model->id);
 		$userExpModel->expMingle += $exp;
 		$userExpModel->expTotal += $exp;
-		if($userExpModel->save())
+		if($userExpModel->update())
 			return true;
 		else
 			return false;
@@ -575,7 +566,7 @@ class HopController extends Controller
 
 				$model->receiver_token = 1;
 
-				if($model->save() && $this->updateUserLevel($userInfo,$lvlModel,$exp)){
+				if($model->update() && $this->updateUserLevel($userInfo,$lvlModel,$exp)){
 					$lvlModel = Level::model()->findByPk($userinfo->lvl_id);
 					$rows[] = array("level"=>$userInfo->lvl_id, "currentExp"=>$userInfo->currentExp,"expNeeded"=>$lvlModel->expNeeded);
 					print(json_encode(array("flag"=>"true","data"=>$rows)));
@@ -653,12 +644,11 @@ class HopController extends Controller
 
 	public function actionSaveUser(){
 
-		if(isset($_GET['username']) && isset($_GET['password']) && isset($_GET['gender']) && isset($_GET['RFID']) && isset($_GET['email'])){
+		if(isset($_GET['username']) && isset($_GET['password']) && isset($_GET['gender']) && isset($_GET['email'])){
 
 			$username = $_GET['username'];
 			$password = $_GET['password'];
 			$gender   = $_GET['gender'];
-			$rfid 	  = $_GET['RFID'];
 			$email 	  = $_GET['email'];
 
 			$userInfoModel = new Userinfo();
@@ -671,7 +661,6 @@ class HopController extends Controller
 			if($userLogModel->save()){
 				$tagModel->isRegistered = 1;
 				if($tagModel->save()){
-					$userInfoModel->rfid = $rfid;
 					$userInfoModel->gender  = $gender;
 					$userInfoModel->email   = $email;
 					$userInfoModel->log_id  = $userLogModel->id;
@@ -707,7 +696,7 @@ class HopController extends Controller
 				$userInfo = Userinfo::model()->find('id=?',array($id));
 				if(!empty($userInfo)){
 					$userInfo->rfid = $rfid;
-					if($userInfo->save() && $model->save())
+					if($userInfo->update() && $model->update())
 						print(json_encode(array('flag'=>'true')));
 					else
 						print(json_encode(array('flag'=>'false')));		
@@ -726,7 +715,7 @@ class HopController extends Controller
 				$logModel = Userlog::model()->findByPk($userModel->log_id);
 				if(!empty($logModel)){
 					$logModel->password = $password;
-					if($logModel->save())
+					if($logModel->update())
 						print(json_encode(array("flag"=>"true")));
 					else
 						print(json_encode(array("flag"=>"false")));
@@ -755,7 +744,7 @@ class HopController extends Controller
 					$userModel->status = $about;
 					$logModel->username = $username;
 
-					if($userModel->save() && $logModel->save())
+					if($userModel->update() && $logModel->update())
 						print(json_encode(array("flag"=>"true")));
 					else
 						print(json_encode(array("flag"=>"false")));
@@ -779,7 +768,7 @@ class HopController extends Controller
 			$userInfo = Userinfo::model()->findByPk($id);
 			if(!empty($userInfo)){
 				$userInfo->image = $image;
-				if($userInfo->save())
+				if($userInfo->update())
 					print(json_encode(array("flag"=>"true")));
 				else
 					print(json_encode(array("flag"=>"false")));
@@ -797,7 +786,7 @@ class HopController extends Controller
 			$userInfo = Usersettings::model()->findByPk($id);
 			if(!empty($userInfo)){
 				$userInfo[$type] = $value;
-				if($userInfo->save())
+				if($userInfo->update())
 					print(json_encode(array("flag"=>"true")));
 				else
 					print(json_encode(array("flag"=>"false")));
